@@ -1,0 +1,4386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LabKu — Peminjaman Barang Laboratorium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>LabKu Enterprise — Sistem Informasi Laboratorium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: #FFFFFF;
+  --bg-tint: #F1FBF8;
+  --surface: #FFFFFF;
+  --surface-raised: #FFFFFF;
+  --line: #E1EEE9;
+  --line-strong: #C9E0D8;
+  --text: #12283A;
+  --text-soft: #567084;
+  --text-faint: #8AA1AF;
+  --teal: #0EA99E;
+  --teal-dark: #087A72;
+  --teal-tint: #DFF7F3;
+  --coral: #FF6F4C;
+  --coral-tint: #FFE7DF;
+  --amber: #F5A623;
+  --amber-tint: #FEF1DA;
+  --navy: #12283A;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 9px;
+  --shadow: 0 10px 30px -14px rgba(18,40,58,0.18);
+  --font-head: "Sora", sans-serif;
+  --font-body: "Inter", sans-serif;
+/* ==========================================================================
+   DESIGN SYSTEM & CSS VARIABLES
+   ========================================================================== */
+:root {
+  --font-main: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Primary Palette */
+  --brand-primary: #0D9488;
+  --brand-primary-hover: #0F766E;
+  --brand-primary-light: #CCFBF1;
+  --brand-primary-dark: #115E59;
+
+  /* Neutral Surface (Light Mode) */
+  --bg-app: #F8FAFC;
+  --bg-sidebar: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F1F5F9;
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  
+  /* Text */
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-faint: #94A3B8;
+  --text-inverted: #FFFFFF;
+
+  /* Semantic Colors */
+  --success: #10B981;
+  --success-light: #D1FAE5;
+  --warning: #F59E0B;
+  --warning-light: #FEF3C7;
+  --danger: #EF4444;
+  --danger-light: #FEE2E2;
+  --info: #3B82F6;
+  --info-light: #DBEAFE;
+  --purple: #8B5CF6;
+  --purple-light: #EDE9FE;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 6px 16px -2px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 16px 32px -4px rgba(15, 23, 42, 0.12);
+  --shadow-xl: 0 24px 48px -12px rgba(15, 23, 42, 0.18);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  --sidebar-w: 260px;
+  --topbar-h: 70px;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
+:root:not([data-theme="light"]){
+  @media (prefers-color-scheme: dark){
+    --bg:#0E1B22; --bg-tint:#122a29; --surface:#132126; --surface-raised:#16262c;
+    --line:#223138; --line-strong:#2c3f47; --text:#EAF3F0; --text-soft:#9FB6B0; --text-faint:#6C8781;
+    --teal:#3FD6C7; --teal-dark:#1FA394; --teal-tint:#12312d;
+    --coral:#FF8B6E; --coral-tint:#3a2019;
+    --amber:#F7C15C; --amber-tint:#3a2c0d;
+    --shadow: 0 10px 30px -14px rgba(0,0,0,0.5);
+  }
+
+[data-theme="dark"] {
+  --bg-app: #0B1120;
+  --bg-sidebar: #0F172A;
+  --bg-card: #1E293B;
+  --bg-card-hover: #334155;
+  --border: #334155;
+  --border-strong: #475569;
+  
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-faint: #64748B;
+  --text-inverted: #0F172A;
+
+  --brand-primary: #14B8A6;
+  --brand-primary-hover: #2DD4BF;
+  --brand-primary-light: rgba(20, 184, 166, 0.16);
+  --brand-primary-dark: #5EEAD4;
+
+  --success-light: rgba(16, 185, 129, 0.18);
+  --warning-light: rgba(245, 158, 11, 0.18);
+  --danger-light: rgba(239, 68, 68, 0.18);
+  --info-light: rgba(59, 130, 246, 0.18);
+  --purple-light: rgba(139, 92, 246, 0.18);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 16px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 32px -4px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 24px 48px -12px rgba(0, 0, 0, 0.7);
+}
+:root[data-theme="dark"]{
+  --bg:#0E1B22; --bg-tint:#122a29; --surface:#132126; --surface-raised:#16262c;
+  --line:#223138; --line-strong:#2c3f47; --text:#EAF3F0; --text-soft:#9FB6B0; --text-faint:#6C8781;
+  --teal:#3FD6C7; --teal-dark:#1FA394; --teal-tint:#12312d;
+  --coral:#FF8B6E; --coral-tint:#3a2019;
+  --amber:#F7C15C; --amber-tint:#3a2c0d;
+  --shadow: 0 10px 30px -14px rgba(0,0,0,0.5);
+
+/* ==========================================================================
+   BASE & RESET
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14.5px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+*{box-sizing:border-box;}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+body{
+  margin:0; font-family:var(--font-body); background:var(--bg); color:var(--text);
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  min-height:100%; -webkit-font-smoothing:antialiased;
+input, button, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+h1,h2,h3,h4{font-family:var(--font-head); font-weight:600; margin:0; color:var(--text);}
+p{margin:0;}
+button{font-family:var(--font-body); cursor:pointer;}
+::selection{background:var(--teal-tint); color:var(--teal-dark);}
+.hidden{display:none !important;}
+img.overflow-fix{max-width:100%;}
+table{border-collapse:collapse; width:100%;}
+button { cursor: pointer; border: none; background: none; }
+a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; }
+
+/* ---------- LOGIN ---------- */
+#login-screen{
+  min-height:100vh; display:flex; background:var(--bg-tint);
+/* Scrollbar */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* SVG Icons Utility */
+.icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  stroke-width: 2;
+  stroke: currentColor;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.login-visual{
+  flex:1.1; background:linear-gradient(155deg, var(--teal) 0%, var(--teal-dark) 100%);
+  color:#fff; padding:56px 48px; display:flex; flex-direction:column; justify-content:space-between;
+  position:relative; overflow:hidden;
+.icon-sm { width: 15px; height: 15px; }
+.icon-lg { width: 22px; height: 22px; }
+.icon-xl { width: 28px; height: 28px; }
+
+/* ==========================================================================
+   BUTTONS & BADGES
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+.login-visual .brand{font-family:var(--font-head); font-size:22px; font-weight:700; letter-spacing:0.2px;}
+.login-visual .brand span{color:#D2F5EF;}
+.login-visual .pitch h1{color:#fff; font-size:38px; line-height:1.2; max-width:420px;}
+.login-visual .pitch p{color:#DEF6F1; font-size:15px; line-height:1.65; max-width:380px; margin-top:16px;}
+.login-visual .items{display:flex; gap:10px; margin-top:32px; flex-wrap:wrap;}
+.item-chip{background:rgba(255,255,255,0.14); border:0.5px solid rgba(255,255,255,0.35); border-radius:999px; padding:7px 16px; font-size:13px;}
+.login-visual .foot{font-size:13px; color:#CFEFE9;}
+.blob{position:absolute; border-radius:50%; background:rgba(255,255,255,0.08);}
+.blob1{width:280px;height:280px; right:-90px; top:-90px;}
+.blob2{width:200px;height:200px; left:-70px; bottom:-60px;}
+.btn:active { transform: scale(0.98); }
+.btn-primary {
+  background: var(--brand-primary);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+}
+.btn-primary:hover {
+  background: var(--brand-primary-hover);
+  box-shadow: 0 6px 16px rgba(13, 148, 136, 0.35);
+}
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1.5px solid var(--border);
+}
+.btn-secondary:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+}
+.btn-danger {
+  background: var(--danger);
+  color: #FFFFFF;
+}
+.btn-danger:hover { background: #DC2626; }
+.btn-success {
+  background: var(--success);
+  color: #FFFFFF;
+}
+.btn-success:hover { background: #059669; }
+.btn-sm { padding: 6px 11px; font-size: 0.83rem; border-radius: 6px; }
+.btn-icon {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  transition: all var(--transition-fast);
+}
+.btn-icon:hover {
+  color: var(--brand-primary);
+  border-color: var(--brand-primary);
+  background: var(--brand-primary-light);
+}
+
+.login-panel{
+  flex:1; display:flex; align-items:center; justify-content:center; padding:40px 24px;
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.login-card{width:100%; max-width:420px;}
+.login-card h2{font-size:24px; margin-bottom:6px;}
+.login-card .sub{color:var(--text-soft); font-size:14px; margin-bottom:28px;}
+.role-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px;}
+.role-card{
+  border:1.5px solid var(--line-strong); border-radius:var(--radius-md); padding:16px 14px;
+  text-align:left; background:var(--surface); transition:border-color .15s, background .15s;
+.badge-teal { background: var(--brand-primary-light); color: var(--brand-primary); }
+.badge-success { background: var(--success-light); color: var(--success); }
+.badge-warning { background: var(--warning-light); color: #B45309; }
+.badge-danger { background: var(--danger-light); color: var(--danger); }
+.badge-info { background: var(--info-light); color: var(--info); }
+.badge-purple { background: var(--purple-light); color: var(--purple); }
+.badge-gray { background: var(--bg-card-hover); color: var(--text-muted); }
+
+/* ==========================================================================
+   LOGIN SCREEN (ENTERPRISE GRADE)
+   ========================================================================== */
+#login-screen {
+  min-height: 100vh;
+  display: flex;
+  background: var(--bg-app);
+}
+.role-card .r-icon{width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:10px;}
+.role-card .r-name{font-size:14px; font-weight:600; color:var(--text);}
+.role-card .r-desc{font-size:12px; color:var(--text-soft); margin-top:3px; line-height:1.4;}
+.role-card.active{border-color:var(--teal); background:var(--teal-tint);}
+.field{margin-bottom:14px;}
+.field label{display:block; font-size:13px; color:var(--text-soft); margin-bottom:6px;}
+.field input{
+  width:100%; padding:11px 14px; border-radius:var(--radius-sm); border:1.5px solid var(--line-strong);
+  background:var(--surface); color:var(--text); font-size:14px; outline:none;
+.login-hero {
+  flex: 1.15;
+  background: linear-gradient(135deg, #042F2E 0%, #115E59 40%, #0D9488 100%);
+  color: #FFFFFF;
+  padding: 56px 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.field input:focus{border-color:var(--teal);}
+.btn-primary{
+  width:100%; padding:13px; border-radius:var(--radius-sm); border:none; background:var(--teal); color:#fff;
+  font-size:14.5px; font-weight:600; margin-top:6px;
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+  opacity: 0.45;
+  pointer-events: none;
+}
+.btn-primary:hover{background:var(--teal-dark);}
+.login-hint{font-size:12px; color:var(--text-faint); margin-top:14px; text-align:center;}
+.hero-glow-1 {
+  position: absolute;
+  top: -120px;
+  right: -100px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(45, 212, 191, 0.35) 0%, transparent 70%);
+}
+.hero-glow-2 {
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.45) 0%, transparent 70%);
+}
+.hero-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-logo-sq {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  color: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.brand-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.brand-title span { color: #5EEAD4; }
+.version-tag {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ---------- APP SHELL ---------- */
+#app-screen{min-height:100vh; display:none;}
+.shell{display:flex; min-height:100vh;}
+.sidebar{
+  width:236px; flex-shrink:0; background:var(--surface); border-right:1px solid var(--line);
+  padding:22px 16px; display:flex; flex-direction:column; position:sticky; top:0; height:100vh;
+.hero-body {
+  position: relative;
+  z-index: 2;
+  max-width: 540px;
+  margin: 40px 0;
+}
+.sidebar .brand{display:flex; align-items:center; gap:9px; padding:0 8px 22px; font-family:var(--font-head); font-weight:700; font-size:17px;}
+.brand-mark{width:30px; height:30px; border-radius:9px; background:var(--teal); flex-shrink:0;}
+.nav-group-label{font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-faint); padding:14px 12px 6px;}
+.nav-item{
+  display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:var(--radius-sm);
+  color:var(--text-soft); font-size:14px; font-weight:500; margin-bottom:2px; background:transparent; border:none; width:100%; text-align:left;
+.server-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #A7F3D0;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.nav-item .dot{width:7px; height:7px; border-radius:50%; background:var(--line-strong); flex-shrink:0;}
+.nav-item:hover{background:var(--bg-tint); color:var(--text);}
+.nav-item.active{background:var(--teal-tint); color:var(--teal-dark); font-weight:600;}
+.nav-item.active .dot{background:var(--teal);}
+.sidebar-foot{margin-top:auto; border-top:1px solid var(--line); padding-top:14px;}
+.user-chip{display:flex; align-items:center; gap:10px; padding:8px; border-radius:var(--radius-sm);}
+.avatar{width:34px; height:34px; border-radius:50%; background:var(--coral-tint); color:var(--coral); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; flex-shrink:0;}
+.user-chip .u-name{font-size:13px; font-weight:600; color:var(--text);}
+.user-chip .u-role{font-size:11.5px; color:var(--text-faint);}
+.logout-btn{width:100%; margin-top:10px; padding:9px; border-radius:var(--radius-sm); border:1px solid var(--line-strong); background:transparent; color:var(--text-soft); font-size:13px; font-weight:500;}
+.logout-btn:hover{border-color:var(--coral); color:var(--coral);}
+.status-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34D399;
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.35);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
+.hero-body h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+.hero-body p {
+  font-size: 1.05rem;
+  color: #CCFBF1;
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+.feature-highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.feat-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.feat-card-icon {
+  background: rgba(255, 255, 255, 0.18);
+  padding: 7px;
+  border-radius: 8px;
+  color: #5EEAD4;
+}
+.feat-card h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 2px; }
+.feat-card p { font-size: 0.78rem; color: #CCFBF1; line-height: 1.4; margin: 0; }
+
+.main{flex:1; min-width:0;}
+.topbar{
+  display:flex; align-items:center; justify-content:space-between; padding:18px 32px;
+  border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--bg); z-index:5;
+.hero-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  padding-top: 20px;
+  font-size: 0.84rem;
+  color: #99F6E4;
+}
+.topbar h2{font-size:20px;}
+.topbar .tb-sub{font-size:13px; color:var(--text-soft); margin-top:2px;}
+.badge-pill{padding:5px 13px; border-radius:999px; font-size:12px; font-weight:600; background:var(--teal-tint); color:var(--teal-dark);}
+.content{padding:28px 32px 60px; max-width:1180px;}
+.hero-stats {
+  display: flex;
+  gap: 28px;
+}
+.stat-pill strong { color: #FFFFFF; font-size: 1.05rem; display: block; }
+.stat-pill span { font-size: 0.74rem; opacity: 0.85; }
+
+/* dashboard */
+.stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px;}
+@media(max-width:900px){.stat-grid{grid-template-columns:repeat(2,1fr);}}
+.stat-card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg); padding:20px;}
+.stat-card .s-label{font-size:12.5px; color:var(--text-soft); font-weight:500;}
+.stat-card .s-value{font-family:var(--font-head); font-size:30px; margin-top:8px;}
+.stat-card .s-delta{font-size:12px; margin-top:8px; color:var(--teal-dark); font-weight:600;}
+.stat-card.c-coral .s-value{color:var(--coral);}
+.stat-card.c-amber .s-value{color:#B5790E;}
+.stat-card.c-teal .s-value{color:var(--teal-dark);}
+/* Right Login Form */
+.login-form-wrapper {
+  flex: 0.95;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+  background: var(--bg-card);
+}
+.login-card {
+  width: 100%;
+  max-width: 440px;
+}
+.login-card-head {
+  margin-bottom: 24px;
+}
+.login-card-head h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+.login-card-head p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg); padding:22px; margin-bottom:22px;}
+.panel-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; gap:12px; flex-wrap:wrap;}
+.panel-head h3{font-size:16px;}
+.two-col{display:grid; grid-template-columns:1.4fr 1fr; gap:20px;}
+@media(max-width:960px){.two-col{grid-template-columns:1fr;}}
+/* Quick Demo Role Selector */
+.demo-role-section {
+  margin-bottom: 24px;
+}
+.demo-role-section label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.role-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.role-tab {
+  background: var(--bg-app);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.role-tab:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+}
+.role-tab.active {
+  background: var(--brand-primary-light);
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 1.5px var(--brand-primary);
+}
+.role-tab-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+.role-tab.active .role-tab-icon {
+  background: var(--brand-primary);
+  color: #FFFFFF;
+}
+.role-tab-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.activity-row{display:flex; gap:12px; padding:11px 0; border-bottom:1px solid var(--line);}
+.activity-row:last-child{border-bottom:none;}
+.a-dot{width:9px; height:9px; border-radius:50%; margin-top:6px; flex-shrink:0;}
+.a-title{font-size:13.5px; font-weight:600;}
+.a-time{font-size:12px; color:var(--text-faint); margin-top:2px;}
+.demo-account-hint {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: var(--bg-app);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+.demo-account-hint span { color: var(--text-muted); }
+.btn-apply-demo {
+  color: var(--brand-primary);
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.bar-row{display:flex; align-items:center; gap:12px; margin-bottom:12px;}
+.bar-label{width:96px; font-size:12.5px; color:var(--text-soft); flex-shrink:0;}
+.bar-track{flex:1; height:10px; background:var(--bg-tint); border-radius:6px; overflow:hidden;}
+.bar-fill{height:100%; border-radius:6px; background:var(--teal);}
+.bar-num{width:28px; font-size:12.5px; font-weight:600; text-align:right;}
+/* Form inputs */
+.form-group {
+  margin-bottom: 16px;
+}
+.form-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-icon-lead {
+  position: absolute;
+  left: 14px;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+.input-icon-trail {
+  position: absolute;
+  right: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+.input-icon-trail:hover { color: var(--text-main); }
+.form-input {
+  width: 100%;
+  padding: 11px 14px 11px 42px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg-app);
+  color: var(--text-main);
+  font-size: 0.92rem;
+  transition: all var(--transition-fast);
+  outline: none;
+}
+.form-input:focus {
+  background: var(--bg-card);
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+.form-row-util {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  margin-bottom: 22px;
+  font-size: 0.83rem;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.link-help {
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+.link-help:hover { text-decoration: underline; }
+
+/* toolbar + table */
+.toolbar{display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center;}
+.search-input{flex:1; min-width:180px; padding:10px 14px; border-radius:var(--radius-sm); border:1.5px solid var(--line-strong); background:var(--bg-tint); font-size:13.5px; color:var(--text); outline:none;}
+.search-input:focus{border-color:var(--teal); background:var(--surface);}
+.btn-add{padding:10px 18px; border-radius:var(--radius-sm); border:none; background:var(--coral); color:#fff; font-size:13.5px; font-weight:600; white-space:nowrap;}
+.btn-add:hover{background:#E85F3E;}
+.select-input{padding:10px 12px; border-radius:var(--radius-sm); border:1.5px solid var(--line-strong); background:var(--surface); font-size:13.5px; color:var(--text);}
+.btn-submit-login {
+  width: 100%;
+  padding: 13px;
+  font-size: 0.98rem;
+}
+
+.data-table th{text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-faint); padding:0 14px 10px; font-weight:600;}
+.data-table td{padding:13px 14px; font-size:13.5px; border-top:1px solid var(--line); color:var(--text);}
+.data-table tr:hover td{background:var(--bg-tint);}
+.data-table .muted{color:var(--text-soft);}
+.row-actions{display:flex; gap:6px;}
+.icon-btn{width:30px; height:30px; border-radius:8px; border:1px solid var(--line-strong); background:var(--surface); color:var(--text-soft); display:flex; align-items:center; justify-content:center;}
+.icon-btn:hover{border-color:var(--teal); color:var(--teal-dark);}
+.login-security-footer {
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.pill{display:inline-block; padding:4px 11px; border-radius:999px; font-size:12px; font-weight:600;}
+.pill-teal{background:var(--teal-tint); color:var(--teal-dark);}
+.pill-amber{background:var(--amber-tint); color:#9C6A0C;}
+.pill-coral{background:var(--coral-tint); color:#C24B2E;}
+.pill-gray{background:var(--bg-tint); color:var(--text-soft);}
+/* ==========================================================================
+   APPLICATION SHELL
+   ========================================================================== */
+#app-screen {
+  display: none;
+  min-height: 100vh;
+}
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.empty-state{padding:40px 20px; text-align:center; color:var(--text-soft);}
+.empty-state .e-title{font-family:var(--font-head); font-size:15px; color:var(--text); margin-bottom:6px; font-weight:600;}
+/* Sidebar */
+.app-sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 30;
+  transition: transform var(--transition-normal);
+}
+.sidebar-brand {
+  height: var(--topbar-h);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sidebar-logo-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--brand-primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(13, 148, 136, 0.28);
+}
+.sidebar-brand-name {
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+.sidebar-brand-name span { color: var(--brand-primary); }
+
+/* form / modal */
+.overlay{position:fixed; inset:0; background:rgba(18,40,58,0.42); display:none; align-items:flex-start; justify-content:center; padding:60px 20px; z-index:50; overflow-y:auto;}
+.overlay.show{display:flex;}
+.modal{background:var(--surface); border-radius:var(--radius-lg); padding:26px; width:100%; max-width:440px; box-shadow:var(--shadow);}
+.modal h3{font-size:17px; margin-bottom:18px;}
+.form-grid{display:grid; gap:14px;}
+.form-actions{display:flex; gap:10px; margin-top:20px;}
+.btn-secondary{flex:1; padding:11px; border-radius:var(--radius-sm); border:1.5px solid var(--line-strong); background:transparent; color:var(--text-soft); font-weight:600; font-size:13.5px;}
+.btn-secondary:hover{border-color:var(--text-faint);}
+.form-actions .btn-primary{flex:1; margin-top:0;}
+.sidebar-nav-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 12px;
+}
+.nav-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+  padding: 8px 12px 6px;
+}
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin-bottom: 3px;
+  transition: all var(--transition-fast);
+}
+.nav-link-left {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.nav-link:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-main);
+}
+.nav-link.active {
+  background: var(--brand-primary-light);
+  color: var(--brand-primary);
+}
+.nav-link.active .icon {
+  color: var(--brand-primary);
+}
+.nav-counter {
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  background: var(--border);
+  color: var(--text-main);
+}
+.nav-link.active .nav-counter {
+  background: var(--brand-primary);
+  color: #FFFFFF;
+}
+
+.steps-form .field select{width:100%; padding:11px 14px; border-radius:var(--radius-sm); border:1.5px solid var(--line-strong); background:var(--surface); color:var(--text); font-size:14px;}
+/* Sidebar Profile Footer */
+.sidebar-user-card {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+}
+.user-info-cluster {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.user-avatar-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--brand-primary-light);
+  color: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  position: relative;
+  flex-shrink: 0;
+}
+.online-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--success);
+  border: 2px solid var(--bg-card);
+}
+.user-details {
+  min-width: 0;
+}
+.user-name-text {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user-role-badge {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.report-note{font-size:12.5px; color:var(--text-soft); background:var(--bg-tint); border-radius:var(--radius-sm); padding:12px 14px; margin-top:6px;}
+/* Topbar */
+.app-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.app-topbar {
+  height: var(--topbar-h);
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.sidebar-toggle-btn {
+  display: none;
+}
+.page-title-box h2 {
+  font-size: 1.28rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.page-title-box p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+@media(max-width:820px){
+  #login-screen{flex-direction:column;}
+  .login-visual{padding:36px 26px;}
+  .login-visual .pitch h1{font-size:28px;}
+  .sidebar{position:fixed; z-index:40; transform:translateX(-100%); transition:transform .2s; box-shadow:var(--shadow);}
+  .sidebar.open{transform:translateX(0);}
+  .menu-toggle{display:flex !important;}
+  .content{padding:20px 16px 48px;}
+  .topbar{padding:14px 16px;}
+  .stat-grid{grid-template-columns:1fr 1fr;}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.menu-toggle{display:none; width:34px; height:34px; border-radius:9px; border:1px solid var(--line-strong); background:var(--surface); align-items:center; justify-content:center; margin-right:10px; flex-shrink:0;}
+.tb-left{display:flex; align-items:center;}
+.global-search-box {
+  position: relative;
+  width: 260px;
+}
+.global-search-box input {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border);
+  background: var(--bg-app);
+  font-size: 0.84rem;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+.global-search-box input:focus {
+  background: var(--bg-card);
+  border-color: var(--brand-primary);
+  width: 300px;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
+}
+.global-search-box .icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-faint);
+}
+
+/* Dropdown Container */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  width: 320px;
+  display: none;
+  z-index: 40;
+  overflow: hidden;
+  animation: slideDown 0.15s ease-out;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.dropdown-menu.show { display: block; }
+.dropdown-head {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+.notif-list {
+  max-height: 320px;
+  overflow-y: auto;
+}
+.notif-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  transition: background var(--transition-fast);
+  cursor: pointer;
+}
+.notif-item:hover { background: var(--bg-card-hover); }
+.notif-item.unread { background: var(--brand-primary-light); }
+.notif-icon-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.notif-content h5 { font-size: 0.84rem; font-weight: 700; margin-bottom: 2px; }
+.notif-content p { font-size: 0.76rem; color: var(--text-muted); line-height: 1.35; }
+.notif-time { font-size: 0.7rem; color: var(--text-faint); margin-top: 4px; }
+
+/* Main Content Area */
+.app-content {
+  flex: 1;
+  padding: 30px 32px 60px;
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   DASHBOARD COMPONENTS
+   ========================================================================== */
+.stat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+.stat-widget {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+.stat-widget:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.stat-widget-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.stat-widget-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.stat-widget-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stat-widget-value {
+  font-size: 1.95rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+.stat-widget-meta {
+  margin-top: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stat-widget-meta strong {
+  color: var(--success);
+}
+
+.grid-dashboard-panels {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 24px;
+}
+
+.card-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-xs);
+  margin-bottom: 24px;
+}
+.card-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.card-panel-head h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.card-panel-head p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Category Progress Bars */
+.progress-list-item {
+  margin-bottom: 16px;
+}
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.progress-track {
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--bg-app);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease-in-out;
+}
+
+/* Activity Feed */
+.timeline-item {
+  display: flex;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.timeline-content {
+  flex: 1;
+}
+.timeline-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.timeline-time {
+  font-size: 0.74rem;
+  color: var(--text-faint);
+  margin-top: 3px;
+}
+
+/* ==========================================================================
+   DATA TABLES & TOOLBAR
+   ========================================================================== */
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.toolbar-actions-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 260px;
+}
+.toolbar-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.input-search-table {
+  padding: 9px 14px 9px 36px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg-app);
+  font-size: 0.86rem;
+  min-width: 220px;
+  outline: none;
+}
+.input-search-table:focus {
+  background: var(--bg-card);
+  border-color: var(--brand-primary);
+}
+.select-filter {
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg-app);
+  font-size: 0.86rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.custom-table {
+  width: 100%;
+  text-align: left;
+}
+.custom-table th {
+  padding: 12px 16px;
+  background: var(--bg-app);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+.custom-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--text-main);
+  vertical-align: middle;
+}
+.custom-table tbody tr:hover td {
+  background: var(--bg-card-hover);
+}
+.custom-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.table-code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: var(--bg-app);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.empty-state-box {
+  padding: 48px 24px;
+  text-align: center;
+}
+.empty-state-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--bg-app);
+  color: var(--text-faint);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.empty-state-box h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.empty-state-box p {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  max-width: 380px;
+  margin: 0 auto 18px;
+}
+
+/* ==========================================================================
+   SISWA: KATALOG BARANG VISUAL
+   ========================================================================== */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 20px;
+}
+.catalog-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+}
+.catalog-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--brand-primary);
+}
+.catalog-card-img {
+  height: 140px;
+  background: linear-gradient(135deg, var(--bg-app) 0%, var(--border) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: var(--text-muted);
+}
+.catalog-tag-floating {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+.catalog-card-body {
+  padding: 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.catalog-card-title {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
+.catalog-card-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* ==========================================================================
+   MODALS & POPUPS
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 90;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.15s ease-out;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-overlay.show { display: flex; }
+.modal-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  width: 100%;
+  max-width: 520px;
+  overflow: hidden;
+  animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.modal-body {
+  padding: 24px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  background: var(--bg-app);
+}
+
+/* Digital Ticket QR Card */
+.ticket-card-printable {
+  background: #FFFFFF;
+  color: #0F172A;
+  border: 2px dashed #CBD5E1;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  text-align: center;
+  position: relative;
+}
+.ticket-qr-frame {
+  margin: 16px auto;
+  width: 180px;
+  height: 180px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION SYSTEM
+   ========================================================================== */
+#toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+.toast {
+  pointer-events: auto;
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 300px;
+  max-width: 420px;
+  animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--transition-fast);
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.toast.hide {
+  opacity: 0;
+  transform: translateX(40px);
+}
+.toast-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.toast-body { flex: 1; }
+.toast-body h5 { font-size: 0.88rem; font-weight: 700; margin-bottom: 2px; }
+.toast-body p { font-size: 0.78rem; color: var(--text-muted); }
+
+/* ==========================================================================
+   PRINT TEMPLATE STYLES
+   ========================================================================== */
+@media print {
+  body { background: #FFFFFF !important; color: #000000 !important; }
+  .app-sidebar, .app-topbar, .table-toolbar, .btn, .modal-overlay, #toast-container {
+    display: none !important;
+  }
+  .app-content { padding: 0 !important; max-width: 100% !important; }
+  .card-panel { border: none !important; box-shadow: none !important; padding: 0 !important; }
+  .print-only-header { display: block !important; }
+}
+.print-only-header { display: none; margin-bottom: 24px; }
+.kop-surat {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 3px double #000;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+}
+.kop-logo { width: 70px; height: 70px; }
+.kop-text h2 { font-size: 16pt; font-weight: 800; text-transform: uppercase; margin-bottom: 2px; }
+.kop-text h3 { font-size: 13pt; font-weight: 700; margin-bottom: 2px; }
+.kop-text p { font-size: 9pt; color: #333; }
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+  .stat-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .grid-dashboard-panels { grid-template-columns: 1fr; }
+}
+@media (max-width: 820px) {
+  #login-screen { flex-direction: column; }
+  .login-hero { padding: 36px 24px; }
+  .hero-body h1 { font-size: 1.85rem; }
+  .feature-highlights { grid-template-columns: 1fr; }
+  .app-sidebar {
+    position: fixed;
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-xl);
+  }
+  .app-sidebar.open { transform: translateX(0); }
+  .sidebar-toggle-btn { display: inline-flex; }
+  .app-topbar { padding: 0 16px; }
+  .app-content { padding: 20px 16px 40px; }
+  .stat-cards-grid { grid-template-columns: 1fr; }
+  .global-search-box { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== LOGIN ===================== -->
+<!-- Toast Notification Container -->
+<div id="toast-container"></div>
+
+<!-- ==========================================================================
+     LOGIN SCREEN
+     ========================================================================== -->
+<div id="login-screen">
+  <div class="login-visual">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="brand">Lab<span>Ku</span></div>
+    <div class="pitch">
+      <h1>Satu tempat untuk mengelola barang, peminjaman, dan laporan lab sekolah.</h1>
+      <p>Admin, petugas, kepala laboratorium, dan siswa bekerja dari satu sistem yang sama — data barang, transaksi peminjaman, dan pengembalian selalu tercatat rapi.</p>
+      <div class="items">
+        <span class="item-chip">Laptop</span>
+        <span class="item-chip">Proyektor</span>
+        <span class="item-chip">Router</span>
+        <span class="item-chip">Switch</span>
+        <span class="item-chip">Kabel jaringan</span>
+  <!-- Left Hero Banner -->
+  <div class="login-hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+
+    <div class="hero-header">
+      <div class="brand-badge">
+        <div class="brand-logo-sq">
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        </div>
+        <div class="brand-title">Lab<span>Ku</span></div>
+      </div>
+      <span class="version-tag">v2.5 Enterprise</span>
+    </div>
+    <div class="foot">SMK · Laboratorium Komputer &amp; Jaringan</div>
+
+    <div class="hero-body">
+      <div class="server-status-pill">
+        <span class="status-pulse"></span>
+        <span>Sistem Operasional · Lab Komputer & Jaringan</span>
+      </div>
+      <h1>Satu platform cerdas kelola inventaris, peminjaman & audit lab sekolah.</h1>
+      <p>Dirancang khusus untuk SMK Negeri & Sekolah Kejuruan. Terintegrasi mulai dari permohonan siswa, persetujuan Kepala Lab, hingga rekap denda dan laporan otomatis.</p>
+
+      <div class="feature-highlights">
+        <div class="feat-card">
+          <div class="feat-card-icon">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          </div>
+          <div>
+            <h4>Monitoring Real-time</h4>
+            <p>Stok alat, kondisi baik/rusak, dan lokasi rak terpantau akurat.</p>
+          </div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-card-icon">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><rect x="7" y="7" width="3" height="3"></rect><rect x="14" y="7" width="3" height="3"></rect><rect x="7" y="14" width="3" height="3"></rect><rect x="14" y="14" width="3" height="3"></rect></svg>
+          </div>
+          <div>
+            <h4>Tiket Digital & QR Code</h4>
+            <p>Siswa mendapat tiket QR instan untuk pengambilan barang di lab.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-footer">
+      <div class="hero-stats">
+        <div class="stat-pill">
+          <strong>142 Unit</strong>
+          <span>Alat & Peralatan</span>
+        </div>
+        <div class="stat-pill">
+          <strong>99.4%</strong>
+          <span>Ketertiban Kembali</span>
+        </div>
+        <div class="stat-pill">
+          <strong>4 Role</strong>
+          <span>Akses Terintegrasi</span>
+        </div>
+      </div>
+      <div>SMK Negeri 1 Teknologi</div>
+    </div>
+  </div>
+
+  <div class="login-panel">
+  <!-- Right Login Form -->
+  <div class="login-form-wrapper">
+    <div class="login-card">
+      <h2>Masuk ke LabKu</h2>
+      <p class="sub">Pilih peranmu, lalu masuk untuk melanjutkan.</p>
+      <div class="login-card-head">
+        <h2>Selamat Datang Kembali</h2>
+        <p>Silakan masuk ke portal manajemen laboratorium Anda.</p>
+      </div>
+
+      <div class="role-grid" id="role-grid"></div>
+      <!-- Quick Demo Role Tabs -->
+      <div class="demo-role-section">
+        <label>Pilih Peran Akun (Mode Cepat Demo):</label>
+        <div class="role-tabs" id="login-role-tabs">
+          <!-- Rendered via JS -->
+        </div>
+        <div class="demo-account-hint">
+          <span id="role-demo-hint">Kredensial: admin@labku.sch.id</span>
+          <button class="btn-apply-demo" type="button" onclick="autoFillCurrentDemoRole()">Gunakan Akun Ini</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="in-username">Nama pengguna</label>
+        <input id="in-username" type="text" placeholder="mis. budi.admin">
+      <form id="form-login" onsubmit="handleLoginSubmit(event)">
+        <div class="form-group">
+          <label class="form-label" for="login-username">Nama Pengguna / Email</label>
+          <div class="input-with-icon">
+            <svg class="icon icon-sm input-icon-lead" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <input type="text" id="login-username" class="form-input" placeholder="Masukkan username atau email" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">
+            <label for="login-password">Kata Sandi</label>
+            <a href="javascript:void(0)" class="link-help" onclick="openHelpModal()">Lupa kata sandi?</a>
+          </div>
+          <div class="input-with-icon">
+            <svg class="icon icon-sm input-icon-lead" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
+            <span class="input-icon-trail" onclick="togglePasswordVisibility('login-password')">
+              <svg class="icon icon-sm" id="eye-icon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row-util">
+          <label class="checkbox-label">
+            <input type="checkbox" id="remember-me" checked>
+            <span>Ingat sesi masuk di perangkat ini</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit-login" id="btn-login-action">
+          <span>Masuk Sebagai</span> <span id="login-role-btn-text">Admin</span>
+          <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </form>
+
+      <div class="login-security-footer">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        <span>Enkripsi Sesi Aktif · Server Lab Terverifikasi</span>
+      </div>
+      <div class="field">
+        <label for="in-password">Kata sandi</label>
+        <input id="in-password" type="password" placeholder="••••••••">
+      </div>
+      <button class="btn-primary" onclick="doLogin()">Masuk sebagai <span id="login-role-name">Admin</span></button>
+      <p class="login-hint">Prototipe UI — isi bebas, tidak ada validasi akun.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<!-- ==========================================================================
+     APP MAIN SCREEN
+     ========================================================================== -->
+<div id="app-screen">
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><span class="brand-mark"></span> Lab<span style="color:var(--teal)">Ku</span></div>
+      <div class="nav-group-label">Menu</div>
+      <div id="nav-list"></div>
+      <div class="sidebar-foot">
+        <div class="user-chip">
+          <div class="avatar" id="u-avatar">A</div>
+          <div>
+            <div class="u-name" id="u-name">—</div>
+            <div class="u-role" id="u-role">—</div>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-icon">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          </div>
+          <div class="sidebar-brand-name">Lab<span>Ku</span></div>
+        </div>
+        <button class="logout-btn" onclick="doLogout()">Keluar</button>
+        <button class="btn-icon sidebar-toggle-btn" onclick="toggleSidebar()">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="sidebar-nav-wrap">
+        <div class="nav-heading">Navigasi Utama</div>
+        <nav id="sidebar-nav-links">
+          <!-- Dynamic Links based on role -->
+        </nav>
+      </div>
+
+      <div class="sidebar-user-card">
+        <div class="user-info-cluster">
+          <div class="user-avatar-circle" id="sidebar-avatar">A<span class="online-dot"></span></div>
+          <div class="user-details">
+            <div class="user-name-text" id="sidebar-user-name">Budi Santoso</div>
+            <div class="user-role-badge" id="sidebar-user-role">Administrator</div>
+          </div>
+        </div>
+        <button class="btn-icon" title="Keluar / Ganti Akun" onclick="doLogout()">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        </button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="topbar">
+        <div class="tb-left">
+          <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+          <div>
+            <h2 id="page-title">Dashboard</h2>
+            <div class="tb-sub" id="page-sub">Ringkasan aktivitas laboratorium</div>
+    <!-- Main Content Shell -->
+    <div class="app-main">
+      <!-- Topbar -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button class="btn-icon sidebar-toggle-btn" onclick="toggleSidebar()">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          <div class="page-title-box">
+            <h2 id="view-title">Dashboard</h2>
+            <p id="view-subtitle">Ringkasan analitik dan status laboratorium</p>
+          </div>
+        </div>
+        <span class="badge-pill" id="today-badge">Hari ini</span>
+      </div>
+      <div class="content" id="content"></div>
+
+        <div class="topbar-right">
+          <!-- Quick Search -->
+          <div class="global-search-box">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="global-search-input" placeholder="Cari barang, siswa, transaksi..." oninput="handleGlobalSearch(event)">
+          </div>
+
+          <!-- Dark / Light Mode Toggle -->
+          <button class="btn-icon" id="theme-toggle-btn" title="Ganti Mode Tema" onclick="toggleTheme()">
+            <svg class="icon" id="theme-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+
+          <!-- Notifications Dropdown -->
+          <div style="position:relative;">
+            <button class="btn-icon" id="notif-btn" title="Notifikasi" onclick="toggleNotifDropdown()">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <span class="badge badge-danger" id="notif-badge" style="position:absolute;top:-4px;right:-4px;padding:2px 5px;font-size:0.68rem;">3</span>
+            </button>
+            <div class="dropdown-menu" id="notif-dropdown">
+              <div class="dropdown-head">
+                <span>Notifikasi Sistem</span>
+                <span class="badge badge-teal" onclick="markAllNotifRead()" style="cursor:pointer;">Tandai Dibaca</span>
+              </div>
+              <div class="notif-list" id="notif-items-list">
+                <!-- Notifications loaded via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Switch Role Shortcut -->
+          <button class="btn btn-secondary btn-sm" onclick="openSwitchRoleModal()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+            <span>Ganti Peran</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <main class="app-content" id="app-content-root">
+        <!-- Rendered view content goes here -->
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODAL ===================== -->
+<div class="overlay" id="modal-overlay">
+  <div class="modal" id="modal-box"></div>
+<!-- ==========================================================================
+     MODAL OVERLAY (DYNAMIC)
+     ========================================================================== -->
+<div class="modal-overlay" id="global-modal" onclick="handleModalOverlayClick(event)">
+  <div class="modal-container" id="modal-container-box">
+    <!-- Modal content populated dynamically -->
+  </div>
+</div>
+
+<!-- ==========================================================================
+     JAVASCRIPT LOGIC (ENTERPRISE SIMULATION)
+     ========================================================================== -->
+<script>
+/* ---------------- DATA ---------------- */
+const ROLES = [
+  {id:'admin', name:'Admin', desc:'Kelola seluruh data & transaksi', menus:['dashboard','barang','siswa','peminjaman','pengembalian','laporan']},
+  {id:'petugas', name:'Petugas Laboratorium', desc:'Urus barang & transaksi harian', menus:['dashboard','barang','peminjaman','pengembalian']},
+  {id:'siswa', name:'Siswa', desc:'Ajukan & pantau peminjaman', menus:['dashboard','peminjaman']},
+  {id:'kepala', name:'Kepala Laboratorium', desc:'Pantau & setujui laporan', menus:['dashboard','laporan']},
+/* ==========================================================================
+   DEFAULT SEED DATA
+   ========================================================================== */
+const DEFAULT_ROLES = [
+  {
+    id: 'admin',
+    name: 'Administrator',
+    label: 'Admin',
+    icon: `<svg class="icon" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V17a1 1 0 0 1-2 0v-.07A7.003 7.003 0 0 1 5.07 11H5a1 1 0 0 1 0-2h.07A7.003 7.003 0 0 1 11 5.07V5a1 1 0 0 1 2 0v.07A7.003 7.003 0 0 1 18.93 11H19a1 1 0 0 1 0 2h-.07A7.003 7.003 0 0 1 13 16.93z"></path></svg>`,
+    email: 'admin@labku.sch.id',
+    user: 'Budi Santoso, S.Kom',
+    menus: ['dashboard', 'barang', 'siswa', 'peminjaman', 'pengembalian', 'laporan', 'audit']
+  },
+  {
+    id: 'petugas',
+    name: 'Petugas Laboratorium',
+    label: 'Petugas',
+    icon: `<svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>`,
+    email: 'petugas@labku.sch.id',
+    user: 'Rian Kurniawan',
+    menus: ['dashboard', 'barang', 'peminjaman', 'pengembalian', 'scanner']
+  },
+  {
+    id: 'siswa',
+    name: 'Siswa / Praktikan',
+    label: 'Siswa',
+    icon: `<svg class="icon" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>`,
+    email: '22101@siswa.labku.sch.id',
+    user: 'Andini Putri (XII TKJ 1)',
+    nis: '22101',
+    menus: ['dashboard', 'katalog', 'my_pinjam']
+  },
+  {
+    id: 'kepala',
+    name: 'Kepala Laboratorium',
+    label: 'Kepala Lab',
+    icon: `<svg class="icon" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>`,
+    email: 'kepala.lab@labku.sch.id',
+    user: 'Drs. H. Mulyono, M.T.',
+    menus: ['dashboard', 'approval', 'laporan', 'pengadaan']
+  }
+];
+
+let barang = [
+  {id:1, kode:'LT-001', nama:'Laptop Acer Aspire 5', kategori:'Laptop', jumlah:8, kondisi:'Baik', status:'Tersedia'},
+  {id:2, kode:'PR-002', nama:'Proyektor Epson EB-X05', kategori:'Proyektor', jumlah:3, kondisi:'Baik', status:'Dipinjam'},
+  {id:3, kode:'RT-003', nama:'Router Mikrotik RB750', kategori:'Jaringan', jumlah:5, kondisi:'Baik', status:'Tersedia'},
+  {id:4, kode:'SW-004', nama:'Switch TP-Link 24 port', kategori:'Jaringan', jumlah:4, kondisi:'Perlu servis', status:'Dipinjam'},
+  {id:5, kode:'KB-005', nama:'Kabel UTP Cat6 (roll)', kategori:'Aksesori', jumlah:12, kondisi:'Baik', status:'Tersedia'},
+const SEED_BARANG = [
+  { id: 1, kode: 'LP-001', nama: 'Laptop Acer Aspire 5 A515', kategori: 'Laptop', jumlah: 10, kondisi: 'Baik', status: 'Tersedia', lokasi: 'Lemari A1', seri: 'ACR-88219-X' },
+  { id: 2, kode: 'LP-002', nama: 'Laptop ASUS ExpertBook B1', kategori: 'Laptop', jumlah: 6, kondisi: 'Baik', status: 'Tersedia', lokasi: 'Lemari A2', seri: 'ASU-77341-Y' },
+  { id: 3, kode: 'PR-001', nama: 'Proyektor Epson EB-X05 HDMI', kategori: 'Proyektor', jumlah: 4, kondisi: 'Baik', status: 'Tersedia', lokasi: 'Rak Proyektor', seri: 'EPS-99102-A' },
+  { id: 4, kode: 'PR-002', nama: 'Proyektor BenQ MX550 Full HD', kategori: 'Proyektor', jumlah: 2, kondisi: 'Perlu servis', status: 'Dalam Perbaikan', lokasi: 'Ruang Teknisi', seri: 'BNQ-33120-P' },
+  { id: 5, kode: 'RT-001', nama: 'Router Mikrotik RB750Gr3 (hEX)', kategori: 'Jaringan', jumlah: 12, kondisi: 'Baik', status: 'Tersedia', lokasi: 'Lemari Jaringan', seri: 'MTK-750-019' },
+  { id: 6, kode: 'RT-002', nama: 'Router Mikrotik RB951Ui-2HnD', kategori: 'Jaringan', jumlah: 8, kondisi: 'Baik', status: 'Tersedia', lokasi: 'Lemari Jaringan', seri: 'MTK-951-443' },
+  { id: 7, kode: 'SW-001', nama: 'Switch TP-Link 24-Port Gigabit SG1024D', kategori: 'Jaringan', jumlah: 5, kondisi: 'Baik', status: 'Tersedia', lokasi: 'Rak Server B', seri: 'TPL-24G-902' },
+  { id: 8, kode: 'SW-002', nama: 'Cisco Catalyst 2960 Series 24-Port', kategori: 'Jaringan', jumlah: 3, kondisi: 'Perlu servis', status: 'Tersedia', lokasi: 'Rak Server B', seri: 'CSC-2960-008' },
+  { id: 9, kode: 'KB-001', nama: 'Kabel UTP Cat6 Belden (Roll 305m)', kategori: 'Aksesori', jumlah: 6, kondisi: 'Baik', status: 'Tersedia', lokasi: 'Gudang Kabel', seri: 'BLD-CAT6-305' },
+  { id: 10, kode: 'TK-001', nama: 'Crimping Tool RJ45 Pro-Kit', kategori: 'Tools', jumlah: 15, kondisi: 'Baik', status: 'Tersedia', lokasi: 'Kotak Toolset 1', seri: 'PRK-CR-015' },
+  { id: 11, kode: 'TK-002', nama: 'Network Cable Tester Digital', kategori: 'Tools', jumlah: 8, kondisi: 'Baik', status: 'Tersedia', lokasi: 'Kotak Toolset 2', seri: 'TST-DIG-88' },
+];
+
+let siswa = [
+  {id:1, nis:'22101', nama:'Andini Putri', kelas:'XII TKJ 1', jurusan:'TKJ', telp:'0812-xxxx-1201'},
+  {id:2, nis:'22102', nama:'Bayu Saputra', kelas:'XII TKJ 2', jurusan:'TKJ', telp:'0812-xxxx-1202'},
+  {id:3, nis:'22103', nama:'Citra Amelia', kelas:'XI RPL 1', jurusan:'RPL', telp:'0812-xxxx-1203'},
+const SEED_SISWA = [
+  { id: 1, nis: '22101', nama: 'Andini Putri', kelas: 'XII TKJ 1', jurusan: 'TKJ', telp: '0812-9844-1201', email: 'andini.tkj1@gmail.com', pinjamAktif: 1 },
+  { id: 2, nis: '22102', nama: 'Bayu Saputra', kelas: 'XII TKJ 2', jurusan: 'TKJ', telp: '0813-8821-1202', email: 'bayu.saputra@gmail.com', pinjamAktif: 1 },
+  { id: 3, nis: '22103', nama: 'Citra Amelia', kelas: 'XI RPL 1', jurusan: 'RPL', telp: '0857-1192-1203', email: 'citra.amelia@gmail.com', pinjamAktif: 0 },
+  { id: 4, nis: '22104', nama: 'Dimas Wicaksono', kelas: 'XII TKJ 1', jurusan: 'TKJ', telp: '0821-4401-1204', email: 'dimas.wicak@gmail.com', pinjamAktif: 1 },
+  { id: 5, nis: '22105', nama: 'Eka Rahmawati', kelas: 'XI RPL 2', jurusan: 'RPL', telp: '0878-3329-1205', email: 'eka.rahma@gmail.com', pinjamAktif: 0 },
+];
+
+let peminjaman = [
+  {id:1, siswa:'Andini Putri', barang:'Proyektor Epson EB-X05', tglPinjam:'2026-09-18', tglRencana:'2026-09-20', status:'Dipinjam'},
+  {id:2, siswa:'Bayu Saputra', barang:'Switch TP-Link 24 port', tglPinjam:'2026-09-15', tglRencana:'2026-09-17', status:'Terlambat'},
+  {id:3, siswa:'Citra Amelia', barang:'Laptop Acer Aspire 5', tglPinjam:'2026-09-10', tglRencana:'2026-09-12', status:'Selesai'},
+const SEED_PEMINJAMAN = [
+  {
+    id: 1,
+    kodeTrx: 'TRX-2026-0918-01',
+    siswa: 'Andini Putri',
+    nis: '22101',
+    barang: 'Proyektor Epson EB-X05 HDMI',
+    keperluan: 'Presentasi Sidang Prakerin Kelompok 3',
+    tglPinjam: '2026-09-18',
+    tglRencana: '2026-09-24',
+    status: 'Dipinjam',
+    disetujuiOleh: 'Drs. H. Mulyono, M.T.'
+  },
+  {
+    id: 2,
+    kodeTrx: 'TRX-2026-0915-02',
+    siswa: 'Bayu Saputra',
+    nis: '22102',
+    barang: 'Router Mikrotik RB750Gr3 (hEX)',
+    keperluan: 'Praktikum Uji Kompetensi Jaringan VLAN',
+    tglPinjam: '2026-09-15',
+    tglRencana: '2026-09-19',
+    status: 'Terlambat',
+    disetujuiOleh: 'Drs. H. Mulyono, M.T.'
+  },
+  {
+    id: 3,
+    kodeTrx: 'TRX-2026-0922-03',
+    siswa: 'Dimas Wicaksono',
+    nis: '22104',
+    barang: 'Laptop ASUS ExpertBook B1',
+    keperluan: 'Konfigurasi Server Debian & DNS Sekolah',
+    tglPinjam: '2026-09-22',
+    tglRencana: '2026-09-25',
+    status: 'Menunggu Persetujuan',
+    disetujuiOleh: '-'
+  },
+  {
+    id: 4,
+    kodeTrx: 'TRX-2026-0910-04',
+    siswa: 'Citra Amelia',
+    nis: '22103',
+    barang: 'Laptop Acer Aspire 5 A515',
+    keperluan: 'Pengerjaan Proyek Aplikasi Kasir UKK RPL',
+    tglPinjam: '2026-09-10',
+    tglRencana: '2026-09-14',
+    status: 'Selesai',
+    disetujuiOleh: 'Drs. H. Mulyono, M.T.'
+  }
+];
+
+let pengembalian = [
+  {id:1, siswa:'Citra Amelia', barang:'Laptop Acer Aspire 5', tglKembali:'2026-09-12', kondisi:'Baik', denda:0},
+const SEED_PENGEMBALIAN = [
+  {
+    id: 1,
+    kodeTrx: 'TRX-2026-0910-04',
+    siswa: 'Citra Amelia',
+    barang: 'Laptop Acer Aspire 5 A515',
+    tglKembali: '2026-09-14',
+    kondisi: 'Baik',
+    denda: 0,
+    petugas: 'Rian Kurniawan',
+    catatan: 'Barang kembali lengkap dengan charger dan tas.'
+  }
+];
+
+let currentRole = ROLES[0];
+const SEED_NOTIF = [
+  { id: 1, title: 'Keterlambatan Peminjaman', text: 'Bayu Saputra melewati tenggat Router Mikrotik (4 hari).', time: '10 menit lalu', unread: true, type: 'danger' },
+  { id: 2, title: 'Permintaan Persetujuan Baru', text: 'Dimas Wicaksono mengajukan Laptop ASUS ExpertBook.', time: '1 jam lalu', unread: true, type: 'warning' },
+  { id: 3, title: 'Inventarisasi Selesai', text: 'Stok kabel UTP Cat6 telah diupdate oleh Petugas Lab.', time: 'Kemarin', unread: false, type: 'info' }
+];
+
+const SEED_AUDIT = [
+  { id: 1, waktu: '2026-09-22 10:45', user: 'Dimas Wicaksono', action: 'Mengajukan Peminjaman', detail: 'Laptop ASUS ExpertBook B1 (TRX-2026-0922-03)' },
+  { id: 2, waktu: '2026-09-21 14:20', user: 'Rian Kurniawan', action: 'Update Kondisi Barang', detail: 'BenQ MX550 status diubah ke Perlu Servis' },
+  { id: 3, waktu: '2026-09-20 09:15', user: 'Drs. H. Mulyono', action: 'Menyetujui Peminjaman', detail: 'Proyektor Epson EB-X05 untuk Andini Putri' },
+  { id: 4, waktu: '2026-09-18 08:30', user: 'Budi Santoso', action: 'Tambah Barang Baru', detail: 'Cisco Catalyst 2960 Series (CSC-2960-008)' },
+];
+
+/* ==========================================================================
+   STATE MANAGEMENT & STORAGE SYNC
+   ========================================================================== */
+let appData = {
+  barang: JSON.parse(localStorage.getItem('labku_barang')) || SEED_BARANG,
+  siswa: JSON.parse(localStorage.getItem('labku_siswa')) || SEED_SISWA,
+  peminjaman: JSON.parse(localStorage.getItem('labku_peminjaman')) || SEED_PEMINJAMAN,
+  pengembalian: JSON.parse(localStorage.getItem('labku_pengembalian')) || SEED_PENGEMBALIAN,
+  notifikasi: JSON.parse(localStorage.getItem('labku_notif')) || SEED_NOTIF,
+  audit: JSON.parse(localStorage.getItem('labku_audit')) || SEED_AUDIT,
+};
+
+function saveState() {
+  localStorage.setItem('labku_barang', JSON.stringify(appData.barang));
+  localStorage.setItem('labku_siswa', JSON.stringify(appData.siswa));
+  localStorage.setItem('labku_peminjaman', JSON.stringify(appData.peminjaman));
+  localStorage.setItem('labku_pengembalian', JSON.stringify(appData.pengembalian));
+  localStorage.setItem('labku_notif', JSON.stringify(appData.notifikasi));
+  localStorage.setItem('labku_audit', JSON.stringify(appData.audit));
+}
+
+function resetAllData() {
+  if (confirm('Kembalikan seluruh data ke pengaturan awal (pabrik/seed demo)?')) {
+    localStorage.clear();
+    location.reload();
+  }
+}
+
+/* ==========================================================================
+   AUTH & ROLE STATE
+   ========================================================================== */
+let activeRole = DEFAULT_ROLES[0]; // Admin by default
+let currentView = 'dashboard';
+let editState = null;
+let currentTheme = localStorage.getItem('labku_theme') || 'light';
+document.documentElement.setAttribute('data-theme', currentTheme);
+
+/* ---------------- LOGIN ---------------- */
+const roleGrid = document.getElementById('role-grid');
+ROLES.forEach((r,i)=>{
+  const el = document.createElement('button');
+  el.className = 'role-card' + (i===0 ? ' active' : '');
+  el.type = 'button';
+  el.dataset.role = r.id;
+  el.innerHTML = `<div class="r-icon" style="background:${roleColor(r.id,true)}"></div>
+    <div class="r-name">${r.name}</div>
+    <div class="r-desc">${r.desc}</div>`;
+  el.onclick = ()=>selectRole(r.id);
+  roleGrid.appendChild(el);
+/* Render Role Selector Tabs on Login Screen */
+const roleTabsContainer = document.getElementById('login-role-tabs');
+DEFAULT_ROLES.forEach((r, idx) => {
+  const btn = document.createElement('div');
+  btn.className = `role-tab ${idx === 0 ? 'active' : ''}`;
+  btn.dataset.roleId = r.id;
+  btn.onclick = () => selectLoginRole(r.id);
+  btn.innerHTML = `
+    <div class="role-tab-icon">${r.icon}</div>
+    <div class="role-tab-name">${r.label}</div>
+  `;
+  roleTabsContainer.appendChild(btn);
+});
+
+function roleColor(id, tint){
+  const map = {admin:'var(--teal)', petugas:'var(--coral)', siswa:'var(--amber)', kepala:'var(--navy)'};
+  const tintMap = {admin:'var(--teal-tint)', petugas:'var(--coral-tint)', siswa:'var(--amber-tint)', kepala:'var(--bg-tint)'};
+  return tint ? tintMap[id] : map[id];
+function selectLoginRole(roleId) {
+  activeRole = DEFAULT_ROLES.find(r => r.id === roleId);
+  document.querySelectorAll('.role-tab').forEach(el => {
+    el.classList.toggle('active', el.dataset.roleId === roleId);
+  });
+  document.getElementById('login-role-btn-text').textContent = activeRole.label;
+  document.getElementById('role-demo-hint').textContent = `Kredensial: ${activeRole.email}`;
+  autoFillCurrentDemoRole();
+}
+
+function selectRole(id){
+  currentRole = ROLES.find(r=>r.id===id);
+  document.querySelectorAll('.role-card').forEach(c=>c.classList.toggle('active', c.dataset.role===id));
+  document.getElementById('login-role-name').textContent = currentRole.name;
+function autoFillCurrentDemoRole() {
+  document.getElementById('login-username').value = activeRole.email;
+  document.getElementById('login-password').value = 'labku123';
+  showToast('Info Akun Demo', `Kredensial ${activeRole.name} terisi otomatis.`, 'info');
+}
+
+function doLogin(){
+  currentView = currentRole.menus[0];
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app-screen').style.display = 'block';
+  renderSidebar();
+  renderTopbarBadge();
+  navigate(currentView);
+function togglePasswordVisibility(fieldId) {
+  const field = document.getElementById(fieldId);
+  field.type = field.type === 'password' ? 'text' : 'password';
+}
+
+function doLogout(){
+function handleLoginSubmit(e) {
+  e.preventDefault();
+  const username = document.getElementById('login-username').value.trim();
+  const pass = document.getElementById('login-password').value.trim();
+
+  if (!username || !pass) {
+    showToast('Validasi Gagal', 'Mohon lengkapi username dan kata sandi.', 'danger');
+    return;
+  }
+
+  // Visual login transition
+  const btn = document.getElementById('btn-login-action');
+  btn.innerHTML = `<span class="status-pulse" style="display:inline-block"></span> Memverifikasi...`;
+  btn.disabled = true;
+
+  setTimeout(() => {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display = 'block';
+    btn.disabled = false;
+    btn.innerHTML = `<span>Masuk Sebagai</span> <span>${activeRole.label}</span>`;
+    
+    initAppSession();
+    showToast('Autentikasi Berhasil', `Selamat datang, ${activeRole.user} (${activeRole.name}).`, 'success');
+  }, 450);
+}
+
+function doLogout() {
+  document.getElementById('app-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('in-username').value='';
+  document.getElementById('in-password').value='';
+  showToast('Sesi Berakhir', 'Anda telah berhasil keluar dari sistem.', 'info');
+}
+
+function renderTopbarBadge(){
+  const d = new Date();
+  const opts = {weekday:'long', day:'numeric', month:'long', year:'numeric'};
+  document.getElementById('today-badge').textContent = d.toLocaleDateString('id-ID', opts);
+/* ==========================================================================
+   NAVIGATION & VIEW ROUTING
+   ========================================================================== */
+const MENU_DEFINITIONS = {
+  dashboard: { label: 'Dashboard', sub: 'Ringkasan aktivitas & metrik operasional', icon: `<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>` },
+  barang: { label: 'Data Barang & Stok', sub: 'Manajemen inventaris peralatan laboratorium', icon: `<svg class="icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>` },
+  katalog: { label: 'Katalog Barang Lab', sub: 'Eksplorasi alat & ajukan peminjaman', icon: `<svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>` },
+  siswa: { label: 'Data Siswa & Peminjam', sub: 'Database siswa terdaftar di laboratorium', icon: `<svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>` },
+  peminjaman: { label: 'Peminjaman Barang', sub: 'Transaksi peminjaman dan alokasi barang', icon: `<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>` },
+  my_pinjam: { label: 'Peminjaman Saya', sub: 'Status pengajuan & tiket digital Anda', icon: `<svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>` },
+  pengembalian: { label: 'Pengembalian & Denda', sub: 'Verifikasi kembali, kondisi fisik & denda', icon: `<svg class="icon" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>` },
+  approval: { label: 'Pusat Persetujuan', sub: 'Otorisasi pengajuan peminjaman bernilai tinggi', icon: `<svg class="icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>` },
+  scanner: { label: 'Simulator QR Scanner', sub: 'Pemindaian cepat tiket barcode/QR siswa', icon: `<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="7" y1="12" x2="17" y2="12"></line><line x1="12" y1="7" x2="12" y2="17"></line></svg>` },
+  laporan: { label: 'Laporan & Ekspor', sub: 'Rekapitulasi berkala, cetak PDF & ekspor data', icon: `<svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>` },
+  audit: { label: 'Audit Log Sistem', sub: 'Riwayat jejak aktivitas pengguna laboratorium', icon: `<svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>` },
+  pengadaan: { label: 'Usulan Pengadaan', sub: 'Rencana anggaran dan belanja alat lab', icon: `<svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>` }
+};
+
+function initAppSession() {
+  document.getElementById('sidebar-user-name').textContent = activeRole.user;
+  document.getElementById('sidebar-user-role').textContent = activeRole.name;
+  document.getElementById('sidebar-avatar').firstChild.textContent = activeRole.name.charAt(0);
+
+  renderSidebarNav();
+  renderNotifList();
+  navigateTo(activeRole.menus[0]);
+}
+
+/* ---------------- SIDEBAR / NAV ---------------- */
+const MENU_META = {
+  dashboard:{label:'Dashboard', sub:'Ringkasan aktivitas laboratorium'},
+  barang:{label:'Data barang', sub:'Kelola inventaris peralatan lab'},
+  siswa:{label:'Data siswa', sub:'Kelola data siswa peminjam'},
+  peminjaman:{label:'Peminjaman', sub:'Transaksi peminjaman barang'},
+  pengembalian:{label:'Pengembalian', sub:'Catat pengembalian barang'},
+  laporan:{label:'Laporan', sub:'Rekap transaksi per periode'},
+};
+function renderSidebarNav() {
+  const container = document.getElementById('sidebar-nav-links');
+  container.innerHTML = '';
+
+function renderSidebar(){
+  const nav = document.getElementById('nav-list');
+  nav.innerHTML = '';
+  currentRole.menus.forEach(m=>{
+    const b = document.createElement('button');
+    b.className = 'nav-item' + (m===currentView ? ' active' : '');
+    b.innerHTML = `<span class="dot"></span> ${MENU_META[m].label}`;
+    b.onclick = ()=>navigate(m);
+    nav.appendChild(b);
+  activeRole.menus.forEach(menuKey => {
+    const meta = MENU_DEFINITIONS[menuKey];
+    if (!meta) return;
+
+    let counterHtml = '';
+    if (menuKey === 'approval') {
+      const pendingCount = appData.peminjaman.filter(p => p.status === 'Menunggu Persetujuan').length;
+      if (pendingCount > 0) counterHtml = `<span class="nav-counter" style="background:var(--warning);color:#fff">${pendingCount}</span>`;
+    } else if (menuKey === 'peminjaman') {
+      const activeCount = appData.peminjaman.filter(p => p.status === 'Dipinjam' || p.status === 'Terlambat').length;
+      counterHtml = `<span class="nav-counter">${activeCount}</span>`;
+    }
+
+    const btn = document.createElement('button');
+    btn.className = `nav-link ${menuKey === currentView ? 'active' : ''}`;
+    btn.onclick = () => navigateTo(menuKey);
+    btn.innerHTML = `
+      <div class="nav-link-left">
+        ${meta.icon}
+        <span>${meta.label}</span>
+      </div>
+      ${counterHtml}
+    `;
+    container.appendChild(btn);
+  });
+  document.getElementById('u-name').textContent = document.getElementById('in-username').value || 'Pengguna';
+  document.getElementById('u-role').textContent = currentRole.name;
+  document.getElementById('u-avatar').textContent = currentRole.name.charAt(0);
+  document.getElementById('u-avatar').style.background = roleColor(currentRole.id,true);
+  document.getElementById('u-avatar').style.color = roleColor(currentRole.id,false);
+}
+
+function navigate(view){
+  currentView = view;
+  document.querySelectorAll('.nav-item').forEach((b,i)=>{
+    b.classList.toggle('active', currentRole.menus[i]===view);
+function navigateTo(viewKey) {
+  currentView = viewKey;
+  const meta = MENU_DEFINITIONS[viewKey] || { label: 'Halaman', sub: '' };
+  
+  document.getElementById('view-title').textContent = meta.label;
+  document.getElementById('view-subtitle').textContent = meta.sub;
+
+  // Update nav active classes
+  document.querySelectorAll('#sidebar-nav-links .nav-link').forEach((el, idx) => {
+    el.classList.toggle('active', activeRole.menus[idx] === viewKey);
+  });
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('page-title').textContent = MENU_META[view].label;
+  document.getElementById('page-sub').textContent = MENU_META[view].sub;
+  const c = document.getElementById('content');
+  c.innerHTML = '';
+  if(view==='dashboard') renderDashboard(c);
+  if(view==='barang') renderBarang(c);
+  if(view==='siswa') renderSiswa(c);
+  if(view==='peminjaman') renderPeminjaman(c);
+  if(view==='pengembalian') renderPengembalian(c);
+  if(view==='laporan') renderLaporan(c);
+
+  const root = document.getElementById('app-content-root');
+  root.innerHTML = '';
+
+  // View dispatch
+  if (viewKey === 'dashboard') renderDashboardView(root);
+  else if (viewKey === 'barang') renderBarangView(root);
+  else if (viewKey === 'katalog') renderKatalogSiswaView(root);
+  else if (viewKey === 'siswa') renderSiswaView(root);
+  else if (viewKey === 'peminjaman') renderPeminjamanView(root);
+  else if (viewKey === 'my_pinjam') renderMyPinjamView(root);
+  else if (viewKey === 'pengembalian') renderPengembalianView(root);
+  else if (viewKey === 'approval') renderApprovalView(root);
+  else if (viewKey === 'scanner') renderScannerView(root);
+  else if (viewKey === 'laporan') renderLaporanView(root);
+  else if (viewKey === 'audit') renderAuditView(root);
+  else if (viewKey === 'pengadaan') renderPengadaanView(root);
+
+  // Close mobile sidebar
+  document.getElementById('app-sidebar').classList.remove('open');
+}
+
+/* ---------------- HELPERS ---------------- */
+function pillFor(status){
+  const s = status.toLowerCase();
+  if(['tersedia','baik','selesai','lunas'].includes(s)) return 'pill-teal';
+  if(['dipinjam','menunggu'].includes(s)) return 'pill-amber';
+  if(['terlambat','rusak','perlu servis'].includes(s)) return 'pill-coral';
+  return 'pill-gray';
+/* ==========================================================================
+   VIEW: DASHBOARD (ADAPTIVE PER ROLE)
+   ========================================================================== */
+function renderDashboardView(container) {
+  const totalUnit = appData.barang.reduce((acc, b) => acc + b.jumlah, 0);
+  const dipinjamCount = appData.peminjaman.filter(p => p.status === 'Dipinjam').length;
+  const terlambatCount = appData.peminjaman.filter(p => p.status === 'Terlambat').length;
+  const pendingCount = appData.peminjaman.filter(p => p.status === 'Menunggu Persetujuan').length;
+
+  let statGridHtml = '';
+
+  if (activeRole.id === 'siswa') {
+    const myLoans = appData.peminjaman.filter(p => p.nis === activeRole.nis || p.siswa.includes('Andini'));
+    const myActive = myLoans.filter(p => p.status === 'Dipinjam' || p.status === 'Terlambat').length;
+    const myPending = myLoans.filter(p => p.status === 'Menunggu Persetujuan').length;
+
+    statGridHtml = `
+      <div class="stat-widget">
+        <div class="stat-widget-top">
+          <span class="stat-widget-label">Barang Sedang Dipinjam</span>
+          <div class="stat-widget-icon" style="background:var(--brand-primary-light);color:var(--brand-primary)">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+          </div>
+        </div>
+        <div class="stat-widget-value">${myActive}</div>
+        <div class="stat-widget-meta">Alat dalam kepemilikan Anda</div>
+      </div>
+      <div class="stat-widget">
+        <div class="stat-widget-top">
+          <span class="stat-widget-label">Menunggu Persetujuan</span>
+          <div class="stat-widget-icon" style="background:var(--warning-light);color:var(--warning)">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+        </div>
+        <div class="stat-widget-value">${myPending}</div>
+        <div class="stat-widget-meta">Permohonan dalam antrean</div>
+      </div>
+      <div class="stat-widget">
+        <div class="stat-widget-top">
+          <span class="stat-widget-label">Total Riwayat Pinjam</span>
+          <div class="stat-widget-icon" style="background:var(--info-light);color:var(--info)">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          </div>
+        </div>
+        <div class="stat-widget-value">${myLoans.length}</div>
+        <div class="stat-widget-meta">Sejak tahun ajaran aktif</div>
+      </div>
+      <div class="stat-widget">
+        <div class="stat-widget-top">
+          <span class="stat-widget-label">Katalog Tersedia</span>
+          <div class="stat-widget-icon" style="background:var(--success-light);color:var(--success)">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          </div>
+        </div>
+        <div class="stat-widget-value">${appData.barang.filter(b => b.status === 'Tersedia').length}</div>
+        <div class="stat-widget-meta"><strong>Bisa langsung diajukan</strong></div>
+      </div>
+    `;
+  } else {
+    // Admin, Petugas, Kepala Lab
+    statGridHtml = `
+      <div class="stat-widget">
+        <div class="stat-widget-top">
+          <span class="stat-widget-label">Total Unit Peralatan</span>
+          <div class="stat-widget-icon" style="background:var(--brand-primary-light);color:var(--brand-primary)">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+          </div>
+        </div>
+        <div class="stat-widget-value">${totalUnit}</div>
+        <div class="stat-widget-meta">${appData.barang.length} Model Terdata</div>
+      </div>
+      <div class="stat-widget">
+        <div class="stat-widget-top">
+          <span class="stat-widget-label">Sedang Dipinjam</span>
+          <div class="stat-widget-icon" style="background:var(--info-light);color:var(--info)">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+        </div>
+        <div class="stat-widget-value">${dipinjamCount}</div>
+        <div class="stat-widget-meta">Siswa aktif meminjam</div>
+      </div>
+      <div class="stat-widget">
+        <div class="stat-widget-top">
+          <span class="stat-widget-label">Terlambat Kembali</span>
+          <div class="stat-widget-icon" style="background:var(--danger-light);color:var(--danger)">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          </div>
+        </div>
+        <div class="stat-widget-value">${terlambatCount}</div>
+        <div class="stat-widget-meta"><strong>Perlu denda/penagihan</strong></div>
+      </div>
+      <div class="stat-widget">
+        <div class="stat-widget-top">
+          <span class="stat-widget-label">Menunggu Otorisasi</span>
+          <div class="stat-widget-icon" style="background:var(--warning-light);color:var(--warning)">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          </div>
+        </div>
+        <div class="stat-widget-value">${pendingCount}</div>
+        <div class="stat-widget-meta">Permohonan butuh acc</div>
+      </div>
+    `;
+  }
+
+  // Category Distribution calculation
+  const catMap = {};
+  appData.barang.forEach(b => {
+    catMap[b.kategori] = (catMap[b.kategori] || 0) + b.jumlah;
+  });
+  const maxCat = Math.max(...Object.values(catMap), 1);
+  const catProgressBars = Object.entries(catMap).map(([cat, count]) => `
+    <div class="progress-list-item">
+      <div class="progress-meta">
+        <span>${cat}</span>
+        <span><strong>${count} unit</strong> (${Math.round((count/totalUnit)*100)}%)</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width:${(count/maxCat)*100}%;background:var(--brand-primary)"></div>
+      </div>
+    </div>
+  `).join('');
+
+  // Recent timeline activities
+  const recentTimeline = appData.peminjaman.slice(0, 5).map(p => `
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:${p.status==='Terlambat'?'var(--danger)':(p.status==='Selesai'?'var(--success)':'var(--warning)')}"></div>
+      <div class="timeline-content">
+        <div class="timeline-title">${p.siswa} meminjam ${p.barang}</div>
+        <div class="timeline-time">${formatDateIndo(p.tglPinjam)} · <span class="badge ${getBadgeByStatus(p.status)}">${p.status}</span></div>
+      </div>
+    </div>
+  `).join('');
+
+  container.innerHTML = `
+    <div class="stat-cards-grid">${statGridHtml}</div>
+
+    <div class="grid-dashboard-panels">
+      <div class="card-panel">
+        <div class="card-panel-head">
+          <div>
+            <h3>Distribusi Inventaris Alat Lab</h3>
+            <p>Alokasi unit peralatan laboratorium berdasarkan klasifikasi kategori</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="navigateTo('barang')">Lihat Semua</button>
+        </div>
+        <div style="margin-top:20px;">
+          ${catProgressBars}
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="card-panel-head">
+          <div>
+            <h3>Aktivitas Transaksi Terbaru</h3>
+            <p>Jejak peminjaman dan sirkulasi hari ini</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="navigateTo('peminjaman')">Riwayat Lengkap</button>
+        </div>
+        <div style="margin-top:14px;">
+          ${recentTimeline || '<div class="empty-state-box"><p>Belum ada aktivitas transaksi.</p></div>'}
+        </div>
+      </div>
+    </div>
+  `;
+}
+function fmtDate(d){
+  return new Date(d).toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+
+/* ==========================================================================
+   VIEW: BARANG & STOK (ADMIN & PETUGAS)
+   ========================================================================== */
+function renderBarangView(container) {
+  container.innerHTML = `
+    <div class="card-panel">
+      <div class="table-toolbar">
+        <div class="toolbar-actions-left">
+          <input type="text" class="input-search-table" id="search-barang" placeholder="Cari kode, nama, nomor seri..." oninput="filterBarangTable()">
+          <select class="select-filter" id="filter-kategori-barang" onchange="filterBarangTable()">
+            <option value="">Semua Kategori</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Proyektor">Proyektor</option>
+            <option value="Jaringan">Jaringan</option>
+            <option value="Tools">Tools</option>
+            <option value="Aksesori">Aksesori</option>
+          </select>
+          <select class="select-filter" id="filter-status-barang" onchange="filterBarangTable()">
+            <option value="">Semua Status</option>
+            <option value="Tersedia">Tersedia</option>
+            <option value="Dalam Perbaikan">Dalam Perbaikan</option>
+          </select>
+        </div>
+        <div class="toolbar-actions-right">
+          <button class="btn btn-secondary" onclick="exportBarangCSV()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Ekspor CSV</span>
+          </button>
+          <button class="btn btn-primary" onclick="openBarangModal()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Tambah Barang</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="custom-table" id="table-barang">
+          <thead>
+            <tr>
+              <th>Kode</th>
+              <th>Nama Peralatan</th>
+              <th>Kategori</th>
+              <th>Nomor Seri</th>
+              <th>Lokasi Simpan</th>
+              <th>Stok</th>
+              <th>Kondisi</th>
+              <th>Status</th>
+              <th style="text-align:right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-barang">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  filterBarangTable();
+}
+function closeModal(){ document.getElementById('modal-overlay').classList.remove('show'); }
+function openModal(html){
+  document.getElementById('modal-box').innerHTML = html;
+  document.getElementById('modal-overlay').classList.add('show');
+
+function filterBarangTable() {
+  const q = (document.getElementById('search-barang')?.value || '').toLowerCase();
+  const kat = document.getElementById('filter-kategori-barang')?.value || '';
+  const stat = document.getElementById('filter-status-barang')?.value || '';
+
+  const filtered = appData.barang.filter(b => {
+    const matchQ = b.nama.toLowerCase().includes(q) || b.kode.toLowerCase().includes(q) || (b.seri && b.seri.toLowerCase().includes(q));
+    const matchKat = !kat || b.kategori === kat;
+    const matchStat = !stat || b.status === stat;
+    return matchQ && matchKat && matchStat;
+  });
+
+  const tbody = document.getElementById('tbody-barang');
+  if (!tbody) return;
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state-box"><h4>Tidak ada barang ditemukan</h4><p>Coba gunakan kata kunci atau filter yang berbeda.</p></div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(b => `
+    <tr>
+      <td><span class="table-code">${b.kode}</span></td>
+      <td><strong>${b.nama}</strong></td>
+      <td><span class="badge badge-gray">${b.kategori}</span></td>
+      <td style="font-family:var(--font-mono);font-size:0.8rem">${b.seri || '-'}</td>
+      <td>${b.lokasi || '-'}</td>
+      <td><strong>${b.jumlah}</strong> Unit</td>
+      <td><span class="badge ${b.kondisi === 'Baik' ? 'badge-success' : 'badge-danger'}">${b.kondisi}</span></td>
+      <td><span class="badge ${b.status === 'Tersedia' ? 'badge-teal' : 'badge-warning'}">${b.status}</span></td>
+      <td style="text-align:right">
+        <div style="display:inline-flex;gap:6px">
+          <button class="btn-icon" title="Edit Barang" onclick="openBarangModal(${b.id})">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          </button>
+          <button class="btn-icon" title="Hapus Barang" onclick="confirmDeleteBarang(${b.id})">
+            <svg class="icon icon-sm" style="color:var(--danger)" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+/* ---------------- DASHBOARD ---------------- */
+function renderDashboard(c){
+  const totalBarang = barang.reduce((a,b)=>a+b.jumlah,0);
+  const dipinjamAktif = peminjaman.filter(p=>p.status==='Dipinjam' || p.status==='Terlambat').length;
+  const terlambat = peminjaman.filter(p=>p.status==='Terlambat').length;
+  const totalSiswa = siswa.length;
+function openBarangModal(editId = null) {
+  const item = editId ? appData.barang.find(b => b.id === editId) : null;
+  const isEdit = !!item;
+
+  let statCards = '';
+  if(currentRole.id==='siswa'){
+    const my = peminjaman.filter(p=>p.siswa===siswa[0].nama);
+    statCards = `
+      <div class="stat-card c-teal"><div class="s-label">Sedang dipinjam</div><div class="s-value">${my.filter(p=>p.status!=='Selesai').length}</div><div class="s-delta">Barang aktif</div></div>
+      <div class="stat-card"><div class="s-label">Total riwayat</div><div class="s-value">${my.length}</div><div class="s-delta">Transaksi tercatat</div></div>
+      <div class="stat-card c-amber"><div class="s-label">Perlu dikembalikan</div><div class="s-value">${my.filter(p=>p.status==='Dipinjam'||p.status==='Terlambat').length}</div><div class="s-delta">Segera kembalikan</div></div>
+      <div class="stat-card"><div class="s-label">Barang tersedia</div><div class="s-value">${barang.filter(b=>b.status==='Tersedia').length}</div><div class="s-delta">Bisa diajukan</div></div>`;
+  openGlobalModal(`
+    <div class="modal-header">
+      <h3>${isEdit ? 'Perbarui Data Peralatan' : 'Tambah Peralatan Laboratorium Baru'}</h3>
+      <button class="btn-icon" onclick="closeGlobalModal()"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    </div>
+    <form onsubmit="saveBarangForm(event, ${editId})">
+      <div class="modal-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label class="form-label">Kode Barang</label>
+            <input type="text" id="m-b-kode" class="form-input" style="padding-left:14px" value="${item ? item.kode : 'LP-00' + (appData.barang.length + 1)}" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nomor Seri / S/N</label>
+            <input type="text" id="m-b-seri" class="form-input" style="padding-left:14px" value="${item ? item.seri : ''}" placeholder="mis. SN-99882">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nama Peralatan / Model</label>
+          <input type="text" id="m-b-nama" class="form-input" style="padding-left:14px" value="${item ? item.nama : ''}" placeholder="mis. Laptop ASUS ExpertBook B1" required>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label class="form-label">Kategori</label>
+            <select id="m-b-kat" class="select-filter" style="width:100%">
+              ${['Laptop', 'Proyektor', 'Jaringan', 'Tools', 'Aksesori'].map(k => `<option ${item && item.kategori === k ? 'selected' : ''}>${k}</option>`).join('')}
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Jumlah Unit (Stok)</label>
+            <input type="number" id="m-b-jumlah" class="form-input" style="padding-left:14px" value="${item ? item.jumlah : 1}" min="1" required>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label class="form-label">Lokasi Penyimpanan</label>
+            <input type="text" id="m-b-lokasi" class="form-input" style="padding-left:14px" value="${item ? item.lokasi : ''}" placeholder="mis. Lemari A1 / Rak B">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kondisi Fisik</label>
+            <select id="m-b-kondisi" class="select-filter" style="width:100%">
+              <option ${item && item.kondisi === 'Baik' ? 'selected' : ''}>Baik</option>
+              <option ${item && item.kondisi === 'Perlu servis' ? 'selected' : ''}>Perlu servis</option>
+              <option ${item && item.kondisi === 'Rusak Berat' ? 'selected' : ''}>Rusak Berat</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeGlobalModal()">Batal</button>
+        <button type="submit" class="btn btn-primary">${isEdit ? 'Simpan Perubahan' : 'Tambahkan ke Lab'}</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveBarangForm(e, editId) {
+  e.preventDefault();
+  const data = {
+    kode: document.getElementById('m-b-kode').value.trim(),
+    seri: document.getElementById('m-b-seri').value.trim(),
+    nama: document.getElementById('m-b-nama').value.trim(),
+    kategori: document.getElementById('m-b-kat').value,
+    jumlah: parseInt(document.getElementById('m-b-jumlah').value) || 1,
+    lokasi: document.getElementById('m-b-lokasi').value.trim(),
+    kondisi: document.getElementById('m-b-kondisi').value,
+    status: 'Tersedia'
+  };
+
+  if (editId) {
+    const idx = appData.barang.findIndex(b => b.id === editId);
+    if (idx !== -1) {
+      appData.barang[idx] = { ...appData.barang[idx], ...data };
+      showToast('Berhasil Diperbarui', `Data barang ${data.nama} telah diupdate.`, 'success');
+    }
+  } else {
+    statCards = `
+      <div class="stat-card c-teal"><div class="s-label">Total barang</div><div class="s-value">${totalBarang}</div><div class="s-delta">${barang.length} jenis peralatan</div></div>
+      <div class="stat-card c-coral"><div class="s-label">Sedang dipinjam</div><div class="s-value">${dipinjamAktif}</div><div class="s-delta">Transaksi aktif</div></div>
+      <div class="stat-card c-amber"><div class="s-label">Terlambat</div><div class="s-value">${terlambat}</div><div class="s-delta">Perlu ditindaklanjuti</div></div>
+      <div class="stat-card"><div class="s-label">Siswa terdaftar</div><div class="s-value">${totalSiswa}</div><div class="s-delta">Aktif meminjam</div></div>`;
+    appData.barang.unshift({ id: Date.now(), ...data });
+    showToast('Barang Ditambahkan', `${data.nama} berhasil didaftarkan ke inventaris.`, 'success');
+  }
+
+  const kategoriCount = {};
+  barang.forEach(b=>{ kategoriCount[b.kategori] = (kategoriCount[b.kategori]||0) + b.jumlah; });
+  const maxCat = Math.max(...Object.values(kategoriCount));
+  const bars = Object.entries(kategoriCount).map(([k,v])=>`
+      <div class="bar-row">
+        <div class="bar-label">${k}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${(v/maxCat*100).toFixed(0)}%"></div></div>
+        <div class="bar-num">${v}</div>
+      </div>`).join('');
+  saveState();
+  closeGlobalModal();
+  filterBarangTable();
+}
+
+  const activity = peminjaman.slice().reverse().slice(0,4).map(p=>`
+      <div class="activity-row">
+        <div class="a-dot" style="background:${p.status==='Terlambat'?'var(--coral)':(p.status==='Selesai'?'var(--teal)':'var(--amber)')}"></div>
+function confirmDeleteBarang(id) {
+  const item = appData.barang.find(b => b.id === id);
+  if (!item) return;
+
+  openGlobalModal(`
+    <div class="modal-header">
+      <h3 style="color:var(--danger)">Konfirmasi Hapus Peralatan</h3>
+      <button class="btn-icon" onclick="closeGlobalModal()"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    </div>
+    <div class="modal-body">
+      <p>Apakah Anda yakin ingin menghapus <strong>${item.nama}</strong> (${item.kode}) dari sistem?</p>
+      <p style="font-size:0.82rem;color:var(--text-muted);margin-top:8px;">Tindakan ini akan menghapus aset ini dari katalog peminjaman laboratorium.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeGlobalModal()">Batalkan</button>
+      <button class="btn btn-danger" onclick="executeDeleteBarang(${id})">Hapus Permanen</button>
+    </div>
+  `);
+}
+
+function executeDeleteBarang(id) {
+  appData.barang = appData.barang.filter(b => b.id !== id);
+  saveState();
+  closeGlobalModal();
+  filterBarangTable();
+  showToast('Dihapus', 'Peralatan berhasil dihapus dari inventaris.', 'info');
+}
+
+/* ==========================================================================
+   VIEW: KATALOG SISWA & AJUKAN PINJAM
+   ========================================================================== */
+function renderKatalogSiswaView(container) {
+  container.innerHTML = `
+    <div class="card-panel">
+      <div class="table-toolbar">
+        <div class="toolbar-actions-left">
+          <input type="text" class="input-search-table" id="search-katalog" placeholder="Cari nama alat, spesifikasi..." oninput="filterKatalogGrid()">
+          <select class="select-filter" id="filter-katalog-kat" onchange="filterKatalogGrid()">
+            <option value="">Semua Kategori</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Proyektor">Proyektor</option>
+            <option value="Jaringan">Jaringan</option>
+            <option value="Tools">Tools</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="catalog-grid" id="catalog-grid-root">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  `;
+  filterKatalogGrid();
+}
+
+function filterKatalogGrid() {
+  const q = (document.getElementById('search-katalog')?.value || '').toLowerCase();
+  const kat = document.getElementById('filter-katalog-kat')?.value || '';
+
+  const items = appData.barang.filter(b => {
+    const matchQ = b.nama.toLowerCase().includes(q) || b.kategori.toLowerCase().includes(q);
+    const matchKat = !kat || b.kategori === kat;
+    return matchQ && matchKat;
+  });
+
+  const grid = document.getElementById('catalog-grid-root');
+  if (!grid) return;
+
+  if (items.length === 0) {
+    grid.innerHTML = `<div class="empty-state-box" style="grid-column:1/-1"><h4>Alat tidak ditemukan</h4><p>Coba kata kunci pencarian lainnya.</p></div>`;
+    return;
+  }
+
+  grid.innerHTML = items.map(b => `
+    <div class="catalog-card">
+      <div class="catalog-card-img">
+        <svg class="icon icon-xl" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        <span class="badge ${b.status === 'Tersedia' ? 'badge-success' : 'badge-danger'} catalog-tag-floating">${b.status}</span>
+      </div>
+      <div class="catalog-card-body">
+        <div>
+          <div class="a-title">${p.siswa} meminjam ${p.barang}</div>
+          <div class="a-time">Dipinjam ${fmtDate(p.tglPinjam)} · <span class="pill ${pillFor(p.status)}" style="margin-left:2px">${p.status}</span></div>
+          <span class="badge badge-gray" style="margin-bottom:6px;">${b.kategori}</span>
+          <div class="catalog-card-title">${b.nama}</div>
+          <div class="catalog-card-meta">
+            <span>Stok: <strong>${b.jumlah}</strong> Unit</span>
+            <span>Kondisi: ${b.kondisi}</span>
+          </div>
+        </div>
+      </div>`).join('');
+        <button class="btn btn-primary" style="width:100%" onclick="openAjukanPinjamModal(${b.id})" ${b.status !== 'Tersedia' ? 'disabled' : ''}>
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>Ajukan Peminjaman</span>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+  c.innerHTML = `
+    <div class="stat-grid">${statCards}</div>
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-head"><h3>Aktivitas terbaru</h3></div>
+        ${activity || '<div class="empty-state">Belum ada aktivitas.</div>'}
+function openAjukanPinjamModal(barangId) {
+  const item = appData.barang.find(b => b.id === barangId);
+  if (!item) return;
+
+  const today = new Date().toISOString().split('T')[0];
+  const maxReturn = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+  openGlobalModal(`
+    <div class="modal-header">
+      <h3>Pengajuan Peminjaman Alat</h3>
+      <button class="btn-icon" onclick="closeGlobalModal()"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    </div>
+    <form onsubmit="submitAjukanPinjam(event, ${item.id})">
+      <div class="modal-body">
+        <div style="background:var(--bg-app);padding:14px;border-radius:var(--radius-sm);margin-bottom:18px;border:1px solid var(--border)">
+          <div style="font-weight:700;font-size:0.92rem">${item.nama}</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-top:2px">Kode: ${item.kode} · Kategori: ${item.kategori} · Lokasi: ${item.lokasi}</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nama Siswa Peminjam</label>
+          <input type="text" class="form-input" style="padding-left:14px" value="${activeRole.user}" disabled>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Keperluan Peminjaman (Wajib Jelas)</label>
+          <select id="m-p-keperluan" class="select-filter" style="width:100%" required>
+            <option>Praktikum Jaringan & Konfigurasi Lab</option>
+            <option>Ujian Kompetensi Keahlian (UKK)</option>
+            <option>Pengerjaan Proyek Tugas Akhir / Sidang</option>
+            <option>Presentasi Tugas Kelompok di Kelas</option>
+            <option>Lomba / Ekstrakurikuler Robotik</option>
+          </select>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label class="form-label">Tanggal Peminjaman</label>
+            <input type="date" id="m-p-tgl1" class="form-input" style="padding-left:14px" value="${today}" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Rencana Pengembalian</label>
+            <input type="date" id="m-p-tgl2" class="form-input" style="padding-left:14px" value="${maxReturn}" required>
+          </div>
+        </div>
+
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:8px">
+          *Pengajuan akan ditinjau oleh Petugas / Kepala Lab. Setelah disetujui, tiket QR akan diterbitkan untuk ditunjukkan saat pengambilan barang.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Barang per kategori</h3></div>
+        ${bars}
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeGlobalModal()">Batal</button>
+        <button type="submit" class="btn btn-primary">Kirim Permohonan Pinjam</button>
+      </div>
+    </div>`;
+    </form>
+  `);
+}
+
+/* ---------------- BARANG ---------------- */
+function renderBarang(c){
+  c.innerHTML = `
+    <div class="panel">
+      <div class="toolbar">
+        <input class="search-input" id="barang-search" placeholder="Cari nama atau kode barang..." oninput="renderBarangTable()">
+        <select class="select-input" id="barang-filter" onchange="renderBarangTable()">
+          <option value="">Semua kategori</option>
+          <option>Laptop</option><option>Proyektor</option><option>Jaringan</option><option>Aksesori</option>
+        </select>
+        <button class="btn-add" onclick="openBarangForm()">+ Tambah barang</button>
+function submitAjukanPinjam(e, barangId) {
+  e.preventDefault();
+  const item = appData.barang.find(b => b.id === barangId);
+  const tgl1 = document.getElementById('m-p-tgl1').value;
+  const tgl2 = document.getElementById('m-p-tgl2').value;
+  const keperluan = document.getElementById('m-p-keperluan').value;
+
+  const trxCode = 'TRX-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.floor(100 + Math.random() * 900);
+
+  const newLoan = {
+    id: Date.now(),
+    kodeTrx: trxCode,
+    siswa: activeRole.user,
+    nis: activeRole.nis || '22101',
+    barang: item.nama,
+    keperluan,
+    tglPinjam: tgl1,
+    tglRencana: tgl2,
+    status: 'Menunggu Persetujuan',
+    disetujuiOleh: '-'
+  };
+
+  appData.peminjaman.unshift(newLoan);
+  
+  // Add notification
+  appData.notifikasi.unshift({
+    id: Date.now(),
+    title: 'Pengajuan Baru Masuk',
+    text: `${activeRole.user} mengajukan pinjam ${item.nama}`,
+    time: 'Baru saja',
+    unread: true,
+    type: 'warning'
+  });
+
+  saveState();
+  closeGlobalModal();
+  showToast('Permohonan Terkirim', 'Peminjaman Anda sedang menunggu persetujuan Kepala Lab.', 'success');
+  navigateTo('my_pinjam');
+}
+
+/* ==========================================================================
+   VIEW: PEMINJAMAN SAYA (SISWA DIGITAL TICKET)
+   ========================================================================== */
+function renderMyPinjamView(container) {
+  const myLoans = appData.peminjaman.filter(p => p.nis === activeRole.nis || p.siswa.includes('Andini') || p.siswa === activeRole.user);
+
+  container.innerHTML = `
+    <div class="card-panel">
+      <div class="card-panel-head">
+        <div>
+          <h3>Riwayat & Tiket Peminjaman Anda</h3>
+          <p>Tunjukkan tiket QR Code kepada Petugas Laboratorium saat mengambil alat</p>
+        </div>
+      </div>
+      <div id="barang-table-wrap"></div>
+    </div>`;
+  renderBarangTable();
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Kode Tiket</th>
+              <th>Peralatan</th>
+              <th>Keperluan</th>
+              <th>Tgl Pinjam</th>
+              <th>Batas Kembali</th>
+              <th>Status</th>
+              <th style="text-align:right">Tiket Digital</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${myLoans.length === 0 ? `<tr><td colspan="7"><div class="empty-state-box"><h4>Belum ada riwayat peminjaman</h4><p>Silakan buka menu Katalog Barang untuk mulai mengajukan alat praktikum.</p></div></td></tr>` : 
+              myLoans.map(p => `
+                <tr>
+                  <td><span class="table-code">${p.kodeTrx}</span></td>
+                  <td><strong>${p.barang}</strong></td>
+                  <td>${p.keperluan}</td>
+                  <td>${formatDateIndo(p.tglPinjam)}</td>
+                  <td>${formatDateIndo(p.tglRencana)}</td>
+                  <td><span class="badge ${getBadgeByStatus(p.status)}">${p.status}</span></td>
+                  <td style="text-align:right">
+                    <button class="btn btn-secondary btn-sm" onclick="showTicketModal('${p.kodeTrx}')">
+                      <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><rect x="7" y="7" width="3" height="3"></rect><rect x="14" y="7" width="3" height="3"></rect><rect x="7" y="14" width="3" height="3"></rect><rect x="14" y="14" width="3" height="3"></rect></svg>
+                      <span>Lihat Tiket QR</span>
+                    </button>
+                  </td>
+                </tr>
+              `).join('')
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function renderBarangTable(){
+  const q = (document.getElementById('barang-search').value||'').toLowerCase();
+  const f = document.getElementById('barang-filter').value;
+  const rows = barang.filter(b=> (b.nama.toLowerCase().includes(q) || b.kode.toLowerCase().includes(q)) && (!f || b.kategori===f));
+  const wrap = document.getElementById('barang-table-wrap');
+  if(!rows.length){ wrap.innerHTML = `<div class="empty-state"><div class="e-title">Tidak ada barang ditemukan</div>Coba ubah kata kunci atau filter kategori.</div>`; return; }
+  wrap.innerHTML = `<table class="data-table">
+    <thead><tr><th>Kode</th><th>Nama barang</th><th>Kategori</th><th>Jumlah</th><th>Kondisi</th><th>Status</th><th></th></tr></thead>
+    <tbody>${rows.map(b=>`
+      <tr>
+        <td class="muted">${b.kode}</td>
+        <td>${b.nama}</td>
+        <td>${b.kategori}</td>
+        <td>${b.jumlah}</td>
+        <td><span class="pill ${pillFor(b.kondisi)}">${b.kondisi}</span></td>
+        <td><span class="pill ${pillFor(b.status)}">${b.status}</span></td>
+        <td><div class="row-actions">
+          <button class="icon-btn" title="Ubah" onclick="openBarangForm(${b.id})">✎</button>
+          <button class="icon-btn" title="Hapus" onclick="deleteBarang(${b.id})">✕</button>
+        </div></td>
+      </tr>`).join('')}</tbody></table>`;
+function showTicketModal(trxCode) {
+  const trx = appData.peminjaman.find(p => p.kodeTrx === trxCode);
+  if (!trx) return;
+
+  openGlobalModal(`
+    <div class="modal-header">
+      <h3>Tiket Digital Laboratorium</h3>
+      <button class="btn-icon" onclick="closeGlobalModal()"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="ticket-card-printable">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--brand-primary);text-transform:uppercase;letter-spacing:0.06em">SMK Negeri 1 Teknologi · Laboratorium</div>
+        <div style="font-size:1.15rem;font-weight:800;margin:6px 0">${trx.barang}</div>
+        <div style="font-size:0.85rem;color:#475569">Peminjam: <strong>${trx.siswa}</strong></div>
+
+        <!-- SVG Matrix QR Code Simulation -->
+        <div class="ticket-qr-frame">
+          <svg width="150" height="150" viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#ffffff" />
+            <!-- Corners -->
+            <rect x="10" y="10" width="25" height="25" fill="#0f172a" />
+            <rect x="14" y="14" width="17" height="17" fill="#ffffff" />
+            <rect x="18" y="18" width="9" height="9" fill="#0f172a" />
+            <rect x="65" y="10" width="25" height="25" fill="#0f172a" />
+            <rect x="69" y="14" width="17" height="17" fill="#ffffff" />
+            <rect x="73" y="18" width="9" height="9" fill="#0f172a" />
+            <rect x="10" y="65" width="25" height="25" fill="#0f172a" />
+            <rect x="14" y="69" width="17" height="17" fill="#ffffff" />
+            <rect x="18" y="73" width="9" height="9" fill="#0f172a" />
+            <!-- Data Dots -->
+            <rect x="42" y="15" width="5" height="15" fill="#0f172a" />
+            <rect x="52" y="22" width="6" height="6" fill="#0f172a" />
+            <rect x="42" y="42" width="16" height="16" fill="#0d9488" />
+            <rect x="18" y="45" width="8" height="8" fill="#0f172a" />
+            <rect x="70" y="45" width="12" height="6" fill="#0f172a" />
+            <rect x="42" y="70" width="8" height="15" fill="#0f172a" />
+            <rect x="65" y="70" width="18" height="8" fill="#0f172a" />
+          </svg>
+        </div>
+
+        <div style="font-family:var(--font-mono);font-size:0.92rem;font-weight:700;letter-spacing:0.04em">${trx.kodeTrx}</div>
+        <div style="margin-top:8px"><span class="badge ${getBadgeByStatus(trx.status)}">${trx.status}</span></div>
+
+        <div style="border-top:1px dashed #cbd5e1;margin-top:16px;padding-top:12px;font-size:0.78rem;color:#64748b;display:grid;grid-template-columns:1fr 1fr;text-align:left;gap:8px">
+          <div>Tgl Pinjam: <strong>${formatDateIndo(trx.tglPinjam)}</strong></div>
+          <div>Batas Kembali: <strong>${formatDateIndo(trx.tglRencana)}</strong></div>
+          <div style="grid-column:1/-1">Keperluan: ${trx.keperluan}</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeGlobalModal()">Tutup</button>
+      <button class="btn btn-primary" onclick="window.print()">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        <span>Cetak Tiket</span>
+      </button>
+    </div>
+  `);
+}
+
+function openBarangForm(id){
+  editState = id ? barang.find(b=>b.id===id) : null;
+  openModal(`
+    <h3>${editState ? 'Ubah barang' : 'Tambah barang baru'}</h3>
+    <div class="form-grid">
+      <div class="field"><label>Kode barang</label><input id="f-kode" value="${editState?editState.kode:''}" placeholder="mis. LT-006"></div>
+      <div class="field"><label>Nama barang</label><input id="f-nama" value="${editState?editState.nama:''}" placeholder="mis. Laptop HP 240"></div>
+      <div class="field"><label>Kategori</label>
+        <select id="f-kategori">
+          ${['Laptop','Proyektor','Jaringan','Aksesori'].map(k=>`<option ${editState&&editState.kategori===k?'selected':''}>${k}</option>`).join('')}
+        </select>
+/* ==========================================================================
+   VIEW: PEMINJAMAN (MANAGEMENT & TRANSAKSI)
+   ========================================================================== */
+function renderPeminjamanView(container) {
+  container.innerHTML = `
+    <div class="card-panel">
+      <div class="table-toolbar">
+        <div class="toolbar-actions-left">
+          <input type="text" class="input-search-table" id="search-pinjam" placeholder="Cari siswa, kode tiket, barang..." oninput="filterPeminjamanTable()">
+          <select class="select-filter" id="filter-pinjam-status" onchange="filterPeminjamanTable()">
+            <option value="">Semua Status</option>
+            <option value="Menunggu Persetujuan">Menunggu Persetujuan</option>
+            <option value="Dipinjam">Dipinjam</option>
+            <option value="Terlambat">Terlambat</option>
+            <option value="Selesai">Selesai</option>
+          </select>
+        </div>
+        <div class="toolbar-actions-right">
+          <button class="btn btn-primary" onclick="openTambahPeminjamanLangsungModal()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Catat Peminjaman Cepat</span>
+          </button>
+        </div>
+      </div>
+      <div class="field"><label>Jumlah</label><input id="f-jumlah" type="number" min="0" value="${editState?editState.jumlah:1}"></div>
+      <div class="field"><label>Kondisi</label>
+        <select id="f-kondisi">
+          ${['Baik','Perlu servis','Rusak'].map(k=>`<option ${editState&&editState.kondisi===k?'selected':''}>${k}</option>`).join('')}
+        </select>
+
+      <div class="table-responsive">
+        <table class="custom-table" id="table-peminjaman">
+          <thead>
+            <tr>
+              <th>Kode Tiket</th>
+              <th>Peminjam</th>
+              <th>Peralatan</th>
+              <th>Tgl Pinjam</th>
+              <th>Batas Waktu</th>
+              <th>Status</th>
+              <th>Otorisasi</th>
+              <th style="text-align:right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-peminjaman">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-secondary" onclick="closeModal()">Batal</button>
+      <button class="btn-primary" onclick="saveBarang()">Simpan</button>
+    </div>`);
+  `;
+  filterPeminjamanTable();
+}
+
+function saveBarang(){
+  const kode = document.getElementById('f-kode').value.trim();
+  const nama = document.getElementById('f-nama').value.trim();
+  if(!kode || !nama){ alert('Kode dan nama barang wajib diisi.'); return; }
+  const data = {
+    kode, nama,
+    kategori: document.getElementById('f-kategori').value,
+    jumlah: parseInt(document.getElementById('f-jumlah').value)||0,
+    kondisi: document.getElementById('f-kondisi').value,
+    status: editState ? editState.status : 'Tersedia',
+  };
+  if(editState){ Object.assign(editState, data); }
+  else { barang.push({id: Date.now(), ...data}); }
+  closeModal(); renderBarangTable();
+function filterPeminjamanTable() {
+  const q = (document.getElementById('search-pinjam')?.value || '').toLowerCase();
+  const stat = document.getElementById('filter-pinjam-status')?.value || '';
+
+  const filtered = appData.peminjaman.filter(p => {
+    const matchQ = p.siswa.toLowerCase().includes(q) || p.barang.toLowerCase().includes(q) || p.kodeTrx.toLowerCase().includes(q);
+    const matchStat = !stat || p.status === stat;
+    return matchQ && matchStat;
+  });
+
+  const tbody = document.getElementById('tbody-peminjaman');
+  if (!tbody) return;
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state-box"><h4>Tidak ada data transaksi</h4></div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(p => `
+    <tr>
+      <td><span class="table-code">${p.kodeTrx}</span></td>
+      <td><strong>${p.siswa}</strong></td>
+      <td>${p.barang}</td>
+      <td>${formatDateIndo(p.tglPinjam)}</td>
+      <td>${formatDateIndo(p.tglRencana)}</td>
+      <td><span class="badge ${getBadgeByStatus(p.status)}">${p.status}</span></td>
+      <td style="font-size:0.8rem;color:var(--text-muted)">${p.disetujuiOleh || '-'}</td>
+      <td style="text-align:right">
+        <div style="display:inline-flex;gap:6px">
+          <button class="btn-icon" title="Tiket QR" onclick="showTicketModal('${p.kodeTrx}')">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><rect x="7" y="7" width="3" height="3"></rect><rect x="14" y="7" width="3" height="3"></rect><rect x="7" y="14" width="3" height="3"></rect><rect x="14" y="14" width="3" height="3"></rect></svg>
+          </button>
+          ${(p.status === 'Dipinjam' || p.status === 'Terlambat') ? `
+            <button class="btn btn-secondary btn-sm" onclick="openKembalikanModal(${p.id})">Kembalikan</button>
+          ` : ''}
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+function deleteBarang(id){ barang = barang.filter(b=>b.id!==id); renderBarangTable(); }
+
+/* ---------------- SISWA ---------------- */
+function renderSiswa(c){
+  c.innerHTML = `
+    <div class="panel">
+      <div class="toolbar">
+        <input class="search-input" id="siswa-search" placeholder="Cari nama atau NIS siswa..." oninput="renderSiswaTable()">
+        <button class="btn-add" onclick="openSiswaForm()">+ Tambah siswa</button>
+function openTambahPeminjamanLangsungModal() {
+  const barangTersedia = appData.barang.filter(b => b.status === 'Tersedia' && b.jumlah > 0);
+  const today = new Date().toISOString().split('T')[0];
+  const maxReturn = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+  openGlobalModal(`
+    <div class="modal-header">
+      <h3>Catat Peminjaman Cepat (Meja Petugas)</h3>
+      <button class="btn-icon" onclick="closeGlobalModal()"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    </div>
+    <form onsubmit="savePeminjamanLangsung(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Pilih Siswa</label>
+          <select id="m-pl-siswa" class="select-filter" style="width:100%" required>
+            ${appData.siswa.map(s => `<option value="${s.nama}">${s.nama} (${s.nis} - ${s.kelas})</option>`).join('')}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pilih Peralatan Laboratorium</label>
+          <select id="m-pl-barang" class="select-filter" style="width:100%" required>
+            ${barangTersedia.map(b => `<option value="${b.id}">${b.nama} (Stok: ${b.jumlah} - ${b.lokasi})</option>`).join('')}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Keperluan Peminjaman</label>
+          <input type="text" id="m-pl-keperluan" class="form-input" style="padding-left:14px" placeholder="mis. Praktikum Jaringan / Uji Kompetensi" required>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label class="form-label">Tanggal Pinjam</label>
+            <input type="date" id="m-pl-tgl1" class="form-input" style="padding-left:14px" value="${today}" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Rencana Pengembalian</label>
+            <input type="date" id="m-pl-tgl2" class="form-input" style="padding-left:14px" value="${maxReturn}" required>
+          </div>
+        </div>
+      </div>
+      <div id="siswa-table-wrap"></div>
+    </div>`;
+  renderSiswaTable();
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeGlobalModal()">Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan Transaksi</button>
+      </div>
+    </form>
+  `);
+}
+function renderSiswaTable(){
+  const q = (document.getElementById('siswa-search').value||'').toLowerCase();
+  const rows = siswa.filter(s=> s.nama.toLowerCase().includes(q) || s.nis.includes(q));
+  const wrap = document.getElementById('siswa-table-wrap');
+  if(!rows.length){ wrap.innerHTML = `<div class="empty-state"><div class="e-title">Tidak ada siswa ditemukan</div>Coba kata kunci lain.</div>`; return; }
+  wrap.innerHTML = `<table class="data-table">
+    <thead><tr><th>NIS</th><th>Nama siswa</th><th>Kelas</th><th>Jurusan</th><th>No. telepon</th><th></th></tr></thead>
+    <tbody>${rows.map(s=>`
+      <tr>
+        <td class="muted">${s.nis}</td>
+        <td>${s.nama}</td>
+        <td>${s.kelas}</td>
+        <td>${s.jurusan}</td>
+        <td class="muted">${s.telp}</td>
+        <td><div class="row-actions">
+          <button class="icon-btn" title="Ubah" onclick="openSiswaForm(${s.id})">✎</button>
+          <button class="icon-btn" title="Hapus" onclick="deleteSiswa(${s.id})">✕</button>
+        </div></td>
+      </tr>`).join('')}</tbody></table>`;
+
+function savePeminjamanLangsung(e) {
+  e.preventDefault();
+  const siswaNama = document.getElementById('m-pl-siswa').value;
+  const barangId = parseInt(document.getElementById('m-pl-barang').value);
+  const barangObj = appData.barang.find(b => b.id === barangId);
+  const keperluan = document.getElementById('m-pl-keperluan').value.trim();
+  const tgl1 = document.getElementById('m-pl-tgl1').value;
+  const tgl2 = document.getElementById('m-pl-tgl2').value;
+
+  const trxCode = 'TRX-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.floor(100 + Math.random() * 900);
+
+  appData.peminjaman.unshift({
+    id: Date.now(),
+    kodeTrx: trxCode,
+    siswa: siswaNama,
+    barang: barangObj.nama,
+    keperluan,
+    tglPinjam: tgl1,
+    tglRencana: tgl2,
+    status: 'Dipinjam',
+    disetujuiOleh: activeRole.user
+  });
+
+  saveState();
+  closeGlobalModal();
+  filterPeminjamanTable();
+  showToast('Peminjaman Tercatat', `Transaksi ${trxCode} berhasil disimpan.`, 'success');
+}
+function openSiswaForm(id){
+  editState = id ? siswa.find(s=>s.id===id) : null;
+  openModal(`
+    <h3>${editState ? 'Ubah data siswa' : 'Tambah siswa baru'}</h3>
+    <div class="form-grid">
+      <div class="field"><label>NIS</label><input id="f-nis" value="${editState?editState.nis:''}" placeholder="mis. 22104"></div>
+      <div class="field"><label>Nama siswa</label><input id="f-namasiswa" value="${editState?editState.nama:''}" placeholder="Nama lengkap"></div>
+      <div class="field"><label>Kelas</label><input id="f-kelas" value="${editState?editState.kelas:''}" placeholder="mis. XII TKJ 1"></div>
+      <div class="field"><label>Jurusan</label>
+        <select id="f-jurusan">
+          ${['TKJ','RPL','MM'].map(k=>`<option ${editState&&editState.jurusan===k?'selected':''}>${k}</option>`).join('')}
+        </select>
+
+/* ==========================================================================
+   VIEW: PENGEMBALIAN & KALKULASI DENDA
+   ========================================================================== */
+function renderPengembalianView(container) {
+  container.innerHTML = `
+    <div class="card-panel">
+      <div class="card-panel-head">
+        <div>
+          <h3>Daftar Pengembalian & Histori Denda</h3>
+          <p>Catatan penerimaan alat kembali beserta kondisi fisik dan denda keterlambatan</p>
+        </div>
+        <button class="btn btn-primary" onclick="openKembalikanModal()">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          <span>Penerimaan Barang Kembali</span>
+        </button>
+      </div>
+      <div class="field"><label>No. telepon</label><input id="f-telp" value="${editState?editState.telp:''}" placeholder="08xx-xxxx-xxxx"></div>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Kode Tiket</th>
+              <th>Peminjam</th>
+              <th>Peralatan</th>
+              <th>Tgl Kembali</th>
+              <th>Kondisi Fisik</th>
+              <th>Denda</th>
+              <th>Petugas Penerima</th>
+              <th>Catatan</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${appData.pengembalian.length === 0 ? `<tr><td colspan="8"><div class="empty-state-box"><h4>Belum ada pengembalian tercatat</h4></div></td></tr>` :
+              appData.pengembalian.map(k => `
+                <tr>
+                  <td><span class="table-code">${k.kodeTrx}</span></td>
+                  <td><strong>${k.siswa}</strong></td>
+                  <td>${k.barang}</td>
+                  <td>${formatDateIndo(k.tglKembali)}</td>
+                  <td><span class="badge ${k.kondisi === 'Baik' ? 'badge-success' : 'badge-danger'}">${k.kondisi}</span></td>
+                  <td>${k.denda > 0 ? `<strong style="color:var(--danger)">Rp ${k.denda.toLocaleString('id-ID')}</strong>` : '<span class="badge badge-success">Lunas / Rp 0</span>'}</td>
+                  <td>${k.petugas}</td>
+                  <td style="font-size:0.8rem;color:var(--text-muted)">${k.catatan || '-'}</td>
+                </tr>
+              `).join('')
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-secondary" onclick="closeModal()">Batal</button>
+      <button class="btn-primary" onclick="saveSiswa()">Simpan</button>
+    </div>`);
+  `;
+}
+function saveSiswa(){
+  const nama = document.getElementById('f-namasiswa').value.trim();
+  const nis = document.getElementById('f-nis').value.trim();
+  if(!nama || !nis){ alert('NIS dan nama siswa wajib diisi.'); return; }
+  const data = {nis, nama, kelas:document.getElementById('f-kelas').value, jurusan:document.getElementById('f-jurusan').value, telp:document.getElementById('f-telp').value};
+  if(editState){ Object.assign(editState, data); } else { siswa.push({id:Date.now(), ...data}); }
+  closeModal(); renderSiswaTable();
+
+function openKembalikanModal(preselectedId = null) {
+  const activePinjam = appData.peminjaman.filter(p => p.status === 'Dipinjam' || p.status === 'Terlambat');
+  if (activePinjam.length === 0) {
+    showToast('Info', 'Tidak ada transaksi pinjam yang sedang aktif saat ini.', 'info');
+    return;
+  }
+
+  const today = new Date().toISOString().split('T')[0];
+
+  openGlobalModal(`
+    <div class="modal-header">
+      <h3>Proses Penerimaan Pengembalian Barang</h3>
+      <button class="btn-icon" onclick="closeGlobalModal()"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    </div>
+    <form onsubmit="savePengembalianForm(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Pilih Transaksi Peminjaman Aktif</label>
+          <select id="m-k-trx" class="select-filter" style="width:100%" onchange="calculateAutoDenda()" required>
+            ${activePinjam.map(p => `<option value="${p.id}" ${preselectedId && p.id === preselectedId ? 'selected' : ''}>${p.kodeTrx} — ${p.siswa} (${p.barang})</option>`).join('')}
+          </select>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label class="form-label">Tanggal Kembali Realisasi</label>
+            <input type="date" id="m-k-tgl" class="form-input" style="padding-left:14px" value="${today}" onchange="calculateAutoDenda()" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kondisi Alat Saat Kembali</label>
+            <select id="m-k-kondisi" class="select-filter" style="width:100%">
+              <option value="Baik">Baik (Normal)</option>
+              <option value="Perlu servis">Perlu Servis / Lecet</option>
+              <option value="Rusak Berat">Rusak / Tidak Berfungsi</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Denda Keterlambatan (Rp 5.000 / Hari Terlambat)</label>
+          <input type="number" id="m-k-denda" class="form-input" style="padding-left:14px" value="0" min="0">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Catatan Kelengkapan Fisik</label>
+          <textarea id="m-k-catatan" class="form-input" style="padding:10px 14px;height:70px" placeholder="Kelengkapan charger, kabel power, dus lengkap..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeGlobalModal()">Batal</button>
+        <button type="submit" class="btn btn-success">Konfirmasi Pengembalian Selesai</button>
+      </div>
+    </form>
+  `);
+  calculateAutoDenda();
+}
+function deleteSiswa(id){ siswa = siswa.filter(s=>s.id!==id); renderSiswaTable(); }
+
+/* ---------------- PEMINJAMAN ---------------- */
+function renderPeminjaman(c){
+  const isSiswa = currentRole.id==='siswa';
+  c.innerHTML = `
+    <div class="panel">
+      <div class="toolbar">
+        <input class="search-input" id="pinjam-search" placeholder="Cari siswa atau barang..." oninput="renderPeminjamanTable()">
+        <button class="btn-add" onclick="openPeminjamanForm()">${isSiswa ? '+ Ajukan peminjaman' : '+ Catat peminjaman'}</button>
+function calculateAutoDenda() {
+  const trxId = parseInt(document.getElementById('m-k-trx')?.value);
+  const tglKembaliStr = document.getElementById('m-k-tgl')?.value;
+  if (!trxId || !tglKembaliStr) return;
+
+  const trx = appData.peminjaman.find(p => p.id === trxId);
+  if (!trx) return;
+
+  const returnDate = new Date(tglKembaliStr);
+  const dueDate = new Date(trx.tglRencana);
+
+  const diffTime = returnDate.getTime() - dueDate.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  let denda = 0;
+  if (diffDays > 0) {
+    denda = diffDays * 5000; // Rp 5.000/hari
+  }
+
+  const dendaInput = document.getElementById('m-k-denda');
+  if (dendaInput) dendaInput.value = denda;
+}
+
+function savePengembalianForm(e) {
+  e.preventDefault();
+  const trxId = parseInt(document.getElementById('m-k-trx').value);
+  const trx = appData.peminjaman.find(p => p.id === trxId);
+  const tgl = document.getElementById('m-k-tgl').value;
+  const kondisi = document.getElementById('m-k-kondisi').value;
+  const denda = parseInt(document.getElementById('m-k-denda').value) || 0;
+  const catatan = document.getElementById('m-k-catatan').value.trim();
+
+  // Update status peminjaman
+  trx.status = 'Selesai';
+
+  // Push to pengembalian history
+  appData.pengembalian.unshift({
+    id: Date.now(),
+    kodeTrx: trx.kodeTrx,
+    siswa: trx.siswa,
+    barang: trx.barang,
+    tglKembali: tgl,
+    kondisi,
+    denda,
+    petugas: activeRole.user,
+    catatan
+  });
+
+  saveState();
+  closeGlobalModal();
+  renderPengembalianView(document.getElementById('app-content-root'));
+  showToast('Pengembalian Diterima', `Alat ${trx.barang} telah kembali ke laboratorium.`, 'success');
+}
+
+/* ==========================================================================
+   VIEW: PUSAT PERSETUJUAN (KEPALA LAB)
+   ========================================================================== */
+function renderApprovalView(container) {
+  const pendingRequests = appData.peminjaman.filter(p => p.status === 'Menunggu Persetujuan');
+
+  container.innerHTML = `
+    <div class="card-panel">
+      <div class="card-panel-head">
+        <div>
+          <h3>Pusat Otorisasi & Persetujuan Peminjaman</h3>
+          <p>Kepala Laboratorium memiliki wewenang menyetujui atau menolak penggunaan aset lab</p>
+        </div>
+      </div>
+      <div id="pinjam-table-wrap"></div>
+    </div>`;
+  renderPeminjamanTable();
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Kode Pengajuan</th>
+              <th>Pemohon (Siswa)</th>
+              <th>Peralatan</th>
+              <th>Keperluan</th>
+              <th>Durasi Rencana</th>
+              <th>Status</th>
+              <th style="text-align:right">Tindakan Otorisasi</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${pendingRequests.length === 0 ? `<tr><td colspan="7"><div class="empty-state-box"><h4>Semua pengajuan telah diproses</h4><p>Tidak ada permohonan peminjaman yang menunggu otorisasi saat ini.</p></div></td></tr>` :
+              pendingRequests.map(p => `
+                <tr>
+                  <td><span class="table-code">${p.kodeTrx}</span></td>
+                  <td><strong>${p.siswa}</strong></td>
+                  <td>${p.barang}</td>
+                  <td>${p.keperluan}</td>
+                  <td>${formatDateIndo(p.tglPinjam)} s.d ${formatDateIndo(p.tglRencana)}</td>
+                  <td><span class="badge badge-warning">${p.status}</span></td>
+                  <td style="text-align:right">
+                    <div style="display:inline-flex;gap:8px">
+                      <button class="btn btn-danger btn-sm" onclick="rejectApproval(${p.id})">Tolak</button>
+                      <button class="btn btn-success btn-sm" onclick="approveLoan(${p.id})">
+                        <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Setujui</span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              `).join('')
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+function renderPeminjamanTable(){
+  const isSiswa = currentRole.id==='siswa';
+  const q = (document.getElementById('pinjam-search').value||'').toLowerCase();
+  let rows = peminjaman.filter(p=> p.siswa.toLowerCase().includes(q) || p.barang.toLowerCase().includes(q));
+  if(isSiswa) rows = rows.filter(p=>p.siswa===siswa[0].nama);
+  const wrap = document.getElementById('pinjam-table-wrap');
+  if(!rows.length){ wrap.innerHTML = `<div class="empty-state"><div class="e-title">Belum ada transaksi peminjaman</div>Gunakan tombol di atas untuk mencatat peminjaman baru.</div>`; return; }
+  wrap.innerHTML = `<table class="data-table">
+    <thead><tr><th>Siswa</th><th>Barang</th><th>Tgl pinjam</th><th>Rencana kembali</th><th>Status</th><th></th></tr></thead>
+    <tbody>${rows.map(p=>`
+      <tr>
+        <td>${p.siswa}</td>
+        <td>${p.barang}</td>
+        <td class="muted">${fmtDate(p.tglPinjam)}</td>
+        <td class="muted">${fmtDate(p.tglRencana)}</td>
+        <td><span class="pill ${pillFor(p.status)}">${p.status}</span></td>
+        <td><div class="row-actions"><button class="icon-btn" title="Hapus" onclick="deletePeminjaman(${p.id})">✕</button></div></td>
+      </tr>`).join('')}</tbody></table>`;
+
+function approveLoan(id) {
+  const trx = appData.peminjaman.find(p => p.id === id);
+  if (!trx) return;
+
+  trx.status = 'Dipinjam';
+  trx.disetujuiOleh = activeRole.user;
+
+  // Add notification for student
+  appData.notifikasi.unshift({
+    id: Date.now(),
+    title: 'Pengajuan Disetujui!',
+    text: `Peminjaman ${trx.barang} (${trx.kodeTrx}) telah disetujui Kepala Lab.`,
+    time: 'Baru saja',
+    unread: true,
+    type: 'success'
+  });
+
+  saveState();
+  renderApprovalView(document.getElementById('app-content-root'));
+  showToast('Disetujui', `Pengajuan ${trx.kodeTrx} telah disetujui dan berstatus Dipinjam.`, 'success');
+}
+function openPeminjamanForm(){
+  const isSiswa = currentRole.id==='siswa';
+  openModal(`
+    <h3>${isSiswa ? 'Ajukan peminjaman' : 'Catat peminjaman baru'}</h3>
+    <div class="form-grid steps-form">
+      <div class="field"><label>Siswa</label>
+        <select id="f-p-siswa" ${isSiswa?'disabled':''}>
+          ${siswa.map(s=>`<option ${isSiswa && s.id===1 ? 'selected':''}>${s.nama}</option>`).join('')}
+        </select>
+
+function rejectApproval(id) {
+  const trx = appData.peminjaman.find(p => p.id === id);
+  if (!trx) return;
+
+  if (confirm(`Tolak pengajuan peminjaman dari ${trx.siswa}?`)) {
+    trx.status = 'Ditolak';
+    trx.disetujuiOleh = activeRole.user + ' (Ditolak)';
+    saveState();
+    renderApprovalView(document.getElementById('app-content-root'));
+    showToast('Pengajuan Ditolak', `Permohonan ${trx.kodeTrx} telah ditolak.`, 'info');
+  }
+}
+
+/* ==========================================================================
+   VIEW: LAPORAN RESMI & CETAK PDF
+   ========================================================================== */
+function renderLaporanView(container) {
+  const totalDenda = appData.pengembalian.reduce((acc, k) => acc + (k.denda || 0), 0);
+
+  container.innerHTML = `
+    <!-- Formal Kop Surat Header for Print -->
+    <div class="print-only-header">
+      <div class="kop-surat">
+        <div class="brand-logo-sq kop-logo" style="background:#000;color:#fff">
+          <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+        </div>
+        <div class="kop-text">
+          <h2>Pemerintah Provinsi Jawa Barat — Dinas Pendidikan</h2>
+          <h3>SMK NEGERI 1 TEKNOLOGI INFORMATIKA</h3>
+          <p>Jl. Pendidikan No. 45, Kota Pendidikan · Telp: (021) 88921029 · Email: lab@smkn1tekno.sch.id</p>
+        </div>
+      </div>
+      <div class="field"><label>Barang</label>
+        <select id="f-p-barang">
+          ${barang.filter(b=>b.status==='Tersedia').map(b=>`<option>${b.nama}</option>`).join('') || '<option disabled>Tidak ada barang tersedia</option>'}
+        </select>
+      <div style="text-align:center;margin-bottom:20px">
+        <h3 style="font-size:14pt;text-decoration:underline;text-transform:uppercase">Laporan Rekapitulasi Inventaris & Peminjaman Laboratorium</h3>
+        <p style="font-size:10pt">Periode: September 2026</p>
+      </div>
+      <div class="field"><label>Tanggal pinjam</label><input id="f-p-tgl1" type="date"></div>
+      <div class="field"><label>Tanggal rencana kembali</label><input id="f-p-tgl2" type="date"></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-secondary" onclick="closeModal()">Batal</button>
+      <button class="btn-primary" onclick="savePeminjaman()">Simpan</button>
+    </div>`);
+
+    <div class="card-panel">
+      <div class="card-panel-head">
+        <div>
+          <h3>Laporan & Rekapitulasi Laboratorium</h3>
+          <p>Cetak dokumen resmi berkop surat sekolah atau unduh rekap data format CSV</p>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-secondary" onclick="exportTransaksiCSV()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Unduh CSV / Excel</span>
+          </button>
+          <button class="btn btn-primary" onclick="window.print()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            <span>Cetak Dokumen Resmi</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="stat-cards-grid" style="margin-bottom:24px">
+        <div class="stat-widget">
+          <div class="stat-widget-label">Total Transaksi Pinjam</div>
+          <div class="stat-widget-value">${appData.peminjaman.length}</div>
+        </div>
+        <div class="stat-widget">
+          <div class="stat-widget-label">Total Transaksi Selesai</div>
+          <div class="stat-widget-value">${appData.pengembalian.length}</div>
+        </div>
+        <div class="stat-widget">
+          <div class="stat-widget-label">Total Kas Denda Masuk</div>
+          <div class="stat-widget-value" style="color:var(--brand-primary);font-size:1.6rem">Rp ${totalDenda.toLocaleString('id-ID')}</div>
+        </div>
+        <div class="stat-widget">
+          <div class="stat-widget-label">Tingkat Ketepatan Kembali</div>
+          <div class="stat-widget-value" style="color:var(--success)">98.2%</div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Kode Tiket</th>
+              <th>Nama Siswa</th>
+              <th>Peralatan</th>
+              <th>Tgl Pinjam</th>
+              <th>Batas Kembali</th>
+              <th>Status Akhir</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${appData.peminjaman.map(p => `
+              <tr>
+                <td><span class="table-code">${p.kodeTrx}</span></td>
+                <td>${p.siswa}</td>
+                <td>${p.barang}</td>
+                <td>${formatDateIndo(p.tglPinjam)}</td>
+                <td>${formatDateIndo(p.tglRencana)}</td>
+                <td><span class="badge ${getBadgeByStatus(p.status)}">${p.status}</span></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Formal Signature Block for Print -->
+      <div style="display:flex;justify-content:space-between;margin-top:40px;page-break-inside:avoid">
+        <div style="text-align:center;width:240px">
+          <p style="font-size:0.86rem">Mengetahui,</p>
+          <p style="font-size:0.86rem;font-weight:700">Kepala Laboratorium</p>
+          <div style="height:65px"></div>
+          <p style="font-weight:800;text-decoration:underline">Drs. H. Mulyono, M.T.</p>
+          <p style="font-size:0.75rem;color:var(--text-muted)">NIP. 19740512 199903 1 004</p>
+        </div>
+
+        <div style="text-align:center;width:240px">
+          <p style="font-size:0.86rem">Kota Pendidikan, 22 September 2026</p>
+          <p style="font-size:0.86rem;font-weight:700">Penanggung Jawab Inventaris</p>
+          <div style="height:65px"></div>
+          <p style="font-weight:800;text-decoration:underline">${activeRole.user}</p>
+          <p style="font-size:0.75rem;color:var(--text-muted)">Laboratorium Komputer & Jaringan</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+function savePeminjaman(){
+  const tgl1 = document.getElementById('f-p-tgl1').value;
+  const tgl2 = document.getElementById('f-p-tgl2').value;
+  if(!tgl1 || !tgl2){ alert('Tanggal pinjam dan rencana kembali wajib diisi.'); return; }
+  const namaBarang = document.getElementById('f-p-barang').value;
+  peminjaman.push({id:Date.now(), siswa:document.getElementById('f-p-siswa').value, barang:namaBarang, tglPinjam:tgl1, tglRencana:tgl2, status:'Dipinjam'});
+  const b = barang.find(x=>x.nama===namaBarang); if(b) b.status='Dipinjam';
+  closeModal(); renderPeminjamanTable();
+
+/* ==========================================================================
+   VIEW: DATA SISWA (ADMIN)
+   ========================================================================== */
+function renderSiswaView(container) {
+  container.innerHTML = `
+    <div class="card-panel">
+      <div class="table-toolbar">
+        <div class="toolbar-actions-left">
+          <input type="text" class="input-search-table" id="search-siswa" placeholder="Cari nama, NIS, kelas..." oninput="filterSiswaTable()">
+        </div>
+        <div class="toolbar-actions-right">
+          <button class="btn btn-primary" onclick="openSiswaModal()">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Tambah Data Siswa</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>NIS</th>
+              <th>Nama Lengkap</th>
+              <th>Kelas</th>
+              <th>Jurusan</th>
+              <th>No. WhatsApp</th>
+              <th>Email</th>
+              <th style="text-align:right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-siswa">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  filterSiswaTable();
+}
+function deletePeminjaman(id){ peminjaman = peminjaman.filter(p=>p.id!==id); renderPeminjamanTable(); }
+
+/* ---------------- PENGEMBALIAN ---------------- */
+function renderPengembalian(c){
+  c.innerHTML = `
+    <div class="panel">
+      <div class="toolbar">
+        <input class="search-input" id="kembali-search" placeholder="Cari siswa atau barang..." oninput="renderPengembalianTable()">
+        <button class="btn-add" onclick="openPengembalianForm()">+ Catat pengembalian</button>
+function filterSiswaTable() {
+  const q = (document.getElementById('search-siswa')?.value || '').toLowerCase();
+  const filtered = appData.siswa.filter(s => s.nama.toLowerCase().includes(q) || s.nis.includes(q) || s.kelas.toLowerCase().includes(q));
+
+  const tbody = document.getElementById('tbody-siswa');
+  if (!tbody) return;
+
+  tbody.innerHTML = filtered.map(s => `
+    <tr>
+      <td><span class="table-code">${s.nis}</span></td>
+      <td><strong>${s.nama}</strong></td>
+      <td>${s.kelas}</td>
+      <td><span class="badge badge-teal">${s.jurusan}</span></td>
+      <td>${s.telp}</td>
+      <td>${s.email}</td>
+      <td style="text-align:right">
+        <div style="display:inline-flex;gap:6px">
+          <button class="btn-icon" title="Edit Siswa" onclick="openSiswaModal(${s.id})">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          </button>
+          <button class="btn-icon" title="Hapus Siswa" onclick="confirmDeleteSiswa(${s.id})">
+            <svg class="icon icon-sm" style="color:var(--danger)" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function openSiswaModal(editId = null) {
+  const s = editId ? appData.siswa.find(x => x.id === editId) : null;
+  openGlobalModal(`
+    <div class="modal-header">
+      <h3>${s ? 'Ubah Data Siswa' : 'Daftarkan Siswa Baru'}</h3>
+      <button class="btn-icon" onclick="closeGlobalModal()"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    </div>
+    <form onsubmit="saveSiswaForm(event, ${editId})">
+      <div class="modal-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label class="form-label">Nomor Induk Siswa (NIS)</label>
+            <input type="text" id="m-s-nis" class="form-input" style="padding-left:14px" value="${s ? s.nis : ''}" placeholder="mis. 22106" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Jurusan</label>
+            <select id="m-s-jurusan" class="select-filter" style="width:100%">
+              ${['TKJ', 'RPL', 'MM', 'SIJA'].map(j => `<option ${s && s.jurusan === j ? 'selected' : ''}>${j}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nama Lengkap Siswa</label>
+          <input type="text" id="m-s-nama" class="form-input" style="padding-left:14px" value="${s ? s.nama : ''}" placeholder="mis. Fadhil Rahman" required>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label class="form-label">Kelas</label>
+            <input type="text" id="m-s-kelas" class="form-input" style="padding-left:14px" value="${s ? s.kelas : ''}" placeholder="mis. XII TKJ 1" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nomor Telepon / WA</label>
+            <input type="text" id="m-s-telp" class="form-input" style="padding-left:14px" value="${s ? s.telp : ''}" placeholder="0812-xxxx-xxxx" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Alamat Email Siswa</label>
+          <input type="email" id="m-s-email" class="form-input" style="padding-left:14px" value="${s ? s.email : ''}" placeholder="nama.siswa@gmail.com">
+        </div>
+      </div>
+      <div id="kembali-table-wrap"></div>
+    </div>`;
+  renderPengembalianTable();
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeGlobalModal()">Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan Data Siswa</button>
+      </div>
+    </form>
+  `);
+}
+function renderPengembalianTable(){
+  const q = (document.getElementById('kembali-search').value||'').toLowerCase();
+  const rows = pengembalian.filter(p=> p.siswa.toLowerCase().includes(q) || p.barang.toLowerCase().includes(q));
+  const wrap = document.getElementById('kembali-table-wrap');
+  if(!rows.length){ wrap.innerHTML = `<div class="empty-state"><div class="e-title">Belum ada pengembalian tercatat</div>Cari transaksi peminjaman yang aktif untuk mencatat pengembaliannya.</div>`; return; }
+  wrap.innerHTML = `<table class="data-table">
+    <thead><tr><th>Siswa</th><th>Barang</th><th>Tgl kembali</th><th>Kondisi</th><th>Denda</th></tr></thead>
+    <tbody>${rows.map(p=>`
+      <tr>
+        <td>${p.siswa}</td>
+        <td>${p.barang}</td>
+        <td class="muted">${fmtDate(p.tglKembali)}</td>
+        <td><span class="pill ${pillFor(p.kondisi)}">${p.kondisi}</span></td>
+        <td class="muted">${p.denda>0 ? 'Rp '+p.denda.toLocaleString('id-ID') : '—'}</td>
+      </tr>`).join('')}</tbody></table>`;
+
+function saveSiswaForm(e, editId) {
+  e.preventDefault();
+  const data = {
+    nis: document.getElementById('m-s-nis').value.trim(),
+    nama: document.getElementById('m-s-nama').value.trim(),
+    jurusan: document.getElementById('m-s-jurusan').value,
+    kelas: document.getElementById('m-s-kelas').value.trim(),
+    telp: document.getElementById('m-s-telp').value.trim(),
+    email: document.getElementById('m-s-email').value.trim()
+  };
+
+  if (editId) {
+    const idx = appData.siswa.findIndex(x => x.id === editId);
+    if (idx !== -1) appData.siswa[idx] = { ...appData.siswa[idx], ...data };
+  } else {
+    appData.siswa.push({ id: Date.now(), ...data });
+  }
+
+  saveState();
+  closeGlobalModal();
+  filterSiswaTable();
+  showToast('Data Siswa Disimpan', `Informasi ${data.nama} telah tersimpan.`, 'success');
+}
+function openPengembalianForm(){
+  const aktif = peminjaman.filter(p=>p.status==='Dipinjam' || p.status==='Terlambat');
+  openModal(`
+    <h3>Catat pengembalian</h3>
+    <div class="form-grid steps-form">
+      <div class="field"><label>Transaksi peminjaman</label>
+        <select id="f-k-transaksi">
+          ${aktif.map(p=>`<option value="${p.id}">${p.siswa} — ${p.barang}</option>`).join('') || '<option disabled>Tidak ada transaksi aktif</option>'}
+        </select>
+
+function confirmDeleteSiswa(id) {
+  const s = appData.siswa.find(x => x.id === id);
+  if (!s) return;
+  if (confirm(`Hapus data siswa ${s.nama} (${s.nis})?`)) {
+    appData.siswa = appData.siswa.filter(x => x.id !== id);
+    saveState();
+    filterSiswaTable();
+    showToast('Dihapus', 'Data siswa berhasil dihapus.', 'info');
+  }
+}
+
+/* ==========================================================================
+   VIEW: SIMULATOR SCANNER (PETUGAS)
+   ========================================================================== */
+function renderScannerView(container) {
+  container.innerHTML = `
+    <div class="card-panel" style="max-width:680px;margin:0 auto">
+      <div class="card-panel-head">
+        <div>
+          <h3>Simulator Pemindai Barcode / QR Code</h3>
+          <p>Uji coba verifikasi tiket digital siswa saat pengambilan atau pengembalian alat</p>
+        </div>
+      </div>
+      <div class="field"><label>Tanggal kembali</label><input id="f-k-tgl" type="date"></div>
+      <div class="field"><label>Kondisi barang</label>
+        <select id="f-k-kondisi"><option>Baik</option><option>Perlu servis</option><option>Rusak</option></select>
+
+      <div style="background:var(--bg-app);border:2px dashed var(--border-strong);border-radius:var(--radius-lg);padding:40px 20px;text-align:center;margin-bottom:24px">
+        <div style="width:70px;height:70px;border-radius:20px;background:var(--brand-primary-light);color:var(--brand-primary);display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg class="icon icon-xl" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><rect x="7" y="7" width="3" height="3"></rect><rect x="14" y="7" width="3" height="3"></rect><rect x="7" y="14" width="3" height="3"></rect><rect x="14" y="14" width="3" height="3"></rect></svg>
+        </div>
+        <h4>Pilih Tiket Siswa untuk Dipindai</h4>
+        <p style="color:var(--text-muted);font-size:0.84rem;margin:6px 0 18px">Simulasikan kamera scan barcode dengan memilih salah satu kode tiket aktif:</p>
+        
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          ${appData.peminjaman.slice(0, 4).map(p => `
+            <button class="btn btn-secondary btn-sm" onclick="simulateScanCode('${p.kodeTrx}')">${p.kodeTrx}</button>
+          `).join('')}
+        </div>
+      </div>
+      <div class="field"><label>Denda (jika ada)</label><input id="f-k-denda" type="number" min="0" placeholder="0"></div>
+
+      <div id="scanner-result-box" style="display:none;background:var(--bg-card);border:1.5px solid var(--brand-primary);border-radius:var(--radius-md);padding:20px;">
+        <!-- Filled on scan -->
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-secondary" onclick="closeModal()">Batal</button>
+      <button class="btn-primary" onclick="savePengembalian(${aktif.length>0})">Simpan</button>
+    </div>`);
+  `;
+}
+function savePengembalian(hasData){
+  if(!hasData){ closeModal(); return; }
+  const tgl = document.getElementById('f-k-tgl').value;
+  if(!tgl){ alert('Tanggal kembali wajib diisi.'); return; }
+  const pid = parseInt(document.getElementById('f-k-transaksi').value);
+  const trx = peminjaman.find(p=>p.id===pid);
+  const kondisi = document.getElementById('f-k-kondisi').value;
+  pengembalian.push({id:Date.now(), siswa:trx.siswa, barang:trx.barang, tglKembali:tgl, kondisi, denda:parseInt(document.getElementById('f-k-denda').value)||0});
+  trx.status = 'Selesai';
+  const b = barang.find(x=>x.nama===trx.barang); if(b) b.status = kondisi==='Rusak' ? 'Perlu servis' : 'Tersedia';
+  closeModal(); renderPengembalianTable();
+
+function simulateScanCode(code) {
+  const trx = appData.peminjaman.find(p => p.kodeTrx === code);
+  if (!trx) return;
+
+  const box = document.getElementById('scanner-result-box');
+  box.style.display = 'block';
+  box.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <span class="badge badge-success">✓ Data Tiket Terverifikasi Valid</span>
+      <span class="table-code">${trx.kodeTrx}</span>
+    </div>
+    <h3 style="font-size:1.15rem;margin-bottom:4px">${trx.barang}</h3>
+    <p style="font-size:0.86rem;color:var(--text-muted)">Peminjam: <strong>${trx.siswa}</strong></p>
+    <p style="font-size:0.86rem;color:var(--text-muted)">Keperluan: ${trx.keperluan}</p>
+    <div style="margin-top:16px;display:flex;gap:10px">
+      ${(trx.status === 'Dipinjam' || trx.status === 'Terlambat') ? `
+        <button class="btn btn-success" onclick="openKembalikanModal(${trx.id})">Catat Kembali Sekarang</button>
+      ` : ''}
+      <button class="btn btn-secondary" onclick="showTicketModal('${trx.kodeTrx}')">Tampilkan QR Asli</button>
+    </div>
+  `;
+  showToast('Pemindaian Sukses', `Tiket ${code} milik ${trx.siswa} terdeteksi.`, 'success');
+}
+
+/* ---------------- LAPORAN ---------------- */
+function renderLaporan(c){
+  const statusCount = {};
+  peminjaman.forEach(p=>{ statusCount[p.status] = (statusCount[p.status]||0)+1; });
+  const maxS = Math.max(1, ...Object.values(statusCount));
+  const bars = ['Dipinjam','Terlambat','Selesai'].map(k=>`
+    <div class="bar-row">
+      <div class="bar-label">${k}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${((statusCount[k]||0)/maxS*100).toFixed(0)}%; background:${k==='Terlambat'?'var(--coral)':(k==='Selesai'?'var(--teal)':'var(--amber)')}"></div></div>
+      <div class="bar-num">${statusCount[k]||0}</div>
+    </div>`).join('');
+/* ==========================================================================
+   VIEW: AUDIT LOG (ADMIN) & USULAN PENGADAAN (KEPALA LAB)
+   ========================================================================== */
+function renderAuditView(container) {
+  container.innerHTML = `
+    <div class="card-panel">
+      <div class="card-panel-head">
+        <div>
+          <h3>Audit Log & Keamanan Aktivitas</h3>
+          <p>Rekam jejak setiap manipulasi data barang, otorisasi, dan transaksi laboratorium</p>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Waktu Audit</th>
+              <th>Pengguna</th>
+              <th>Aksi / Operasi</th>
+              <th>Detail Catatan Log</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${appData.audit.map(a => `
+              <tr>
+                <td style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-muted)">${a.waktu}</td>
+                <td><strong>${a.user}</strong></td>
+                <td><span class="badge badge-teal">${a.action}</span></td>
+                <td>${a.detail}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+  c.innerHTML = `
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Filter periode</h3>
+function renderPengadaanView(container) {
+  container.innerHTML = `
+    <div class="card-panel">
+      <div class="card-panel-head">
+        <div>
+          <h3>Rencana Usulan Pengadaan Aset Lab</h3>
+          <p>Pengajuan kebutuhan anggaran peralatan ke Kepala Sekolah & Dinas Pendidikan</p>
+        </div>
+        <button class="btn btn-primary" onclick="alert('Formulir Rencana Kerja Anggaran Sekolah (RKAS) siap diajukan.')">+ Buat Usulan Baru</button>
+      </div>
+      <div class="toolbar">
+        <input class="select-input" type="date" value="2026-09-01">
+        <span class="muted" style="font-size:13px;color:var(--text-soft)">sampai</span>
+        <input class="select-input" type="date" value="2026-09-22">
+        <button class="btn-add" onclick="alert('Prototipe: laporan akan diunduh sebagai PDF/Excel.')">Cetak / unduh</button>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Nama Usulan Peralatan</th>
+              <th>Perkiraan Unit</th>
+              <th>Estimasi Anggaran</th>
+              <th>Prioritas</th>
+              <th>Status Verifikasi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Routerboard Mikrotik CCR2004</strong></td>
+              <td>2 Unit</td>
+              <td>Rp 12.000.000</td>
+              <td><span class="badge badge-danger">Tinggi</span></td>
+              <td><span class="badge badge-teal">Disetujui Komite</span></td>
+            </tr>
+            <tr>
+              <td><strong>Kabel Tester Digital Fluke</strong></td>
+              <td>4 Unit</td>
+              <td>Rp 8.500.000</td>
+              <td><span class="badge badge-warning">Sedang</span></td>
+              <td><span class="badge badge-warning">Menunggu RKAS</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="report-note">Menampilkan ${peminjaman.length} transaksi peminjaman dan ${pengembalian.length} pengembalian pada periode terpilih.</div>
+    </div>
+  `;
+}
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-head"><h3>Status peminjaman</h3></div>
+        ${bars}
+/* ==========================================================================
+   EXPORT UTILITIES
+   ========================================================================== */
+function exportBarangCSV() {
+  const headers = ['Kode', 'Nama Peralatan', 'Kategori', 'Nomor Seri', 'Lokasi', 'Jumlah', 'Kondisi', 'Status'];
+  const rows = appData.barang.map(b => [b.kode, `"${b.nama}"`, b.kategori, b.seri || '', `"${b.lokasi || ''}"`, b.jumlah, b.kondisi, b.status]);
+  downloadCSV('inventaris_labku.csv', [headers, ...rows]);
+  showToast('File Diunduh', 'Data inventaris diekspor ke format CSV/Excel.', 'success');
+}
+
+function exportTransaksiCSV() {
+  const headers = ['Kode Tiket', 'Peminjam', 'Peralatan', 'Keperluan', 'Tgl Pinjam', 'Tgl Rencana', 'Status'];
+  const rows = appData.peminjaman.map(p => [p.kodeTrx, `"${p.siswa}"`, `"${p.barang}"`, `"${p.keperluan}"`, p.tglPinjam, p.tglRencana, p.status]);
+  downloadCSV('transaksi_peminjaman_labku.csv', [headers, ...rows]);
+  showToast('File Diunduh', 'Rekap transaksi diekspor ke format CSV.', 'success');
+}
+
+function downloadCSV(filename, rows) {
+  const csvContent = 'data:text/csv;charset=utf-8,' + rows.map(e => e.join(',')).join('\n');
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', filename);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+/* ==========================================================================
+   GLOBAL SEARCH & NOTIFICATIONS
+   ========================================================================== */
+function handleGlobalSearch(e) {
+  const q = e.target.value.trim().toLowerCase();
+  if (q.length < 2) return;
+
+  // Search across barang, siswa, peminjaman
+  const matchB = appData.barang.filter(b => b.nama.toLowerCase().includes(q) || b.kode.toLowerCase().includes(q));
+  const matchP = appData.peminjaman.filter(p => p.siswa.toLowerCase().includes(q) || p.barang.toLowerCase().includes(q) || p.kodeTrx.toLowerCase().includes(q));
+
+  if (e.key === 'Enter') {
+    if (matchB.length > 0) {
+      navigateTo(activeRole.id === 'siswa' ? 'katalog' : 'barang');
+    } else if (matchP.length > 0) {
+      navigateTo(activeRole.id === 'siswa' ? 'my_pinjam' : 'peminjaman');
+    }
+  }
+}
+
+function toggleNotifDropdown() {
+  const menu = document.getElementById('notif-dropdown');
+  menu.classList.toggle('show');
+}
+
+function renderNotifList() {
+  const list = document.getElementById('notif-items-list');
+  const badge = document.getElementById('notif-badge');
+  const unreadCount = appData.notifikasi.filter(n => n.unread).length;
+
+  badge.textContent = unreadCount;
+  badge.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+
+  list.innerHTML = appData.notifikasi.map(n => `
+    <div class="notif-item ${n.unread ? 'unread' : ''}" onclick="readNotif(${n.id})">
+      <div class="notif-icon-box" style="background:${n.type==='danger'?'var(--danger-light)':(n.type==='warning'?'var(--warning-light)':'var(--info-light)')};color:${n.type==='danger'?'var(--danger)':(n.type==='warning'?'var(--warning)':'var(--info)')}">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Ringkasan</h3></div>
+        <div class="activity-row"><div class="a-dot" style="background:var(--teal)"></div><div><div class="a-title">Total barang terdaftar</div><div class="a-time">${barang.reduce((a,b)=>a+b.jumlah,0)} unit dari ${barang.length} jenis</div></div></div>
+        <div class="activity-row"><div class="a-dot" style="background:var(--coral)"></div><div><div class="a-title">Total denda tercatat</div><div class="a-time">Rp ${pengembalian.reduce((a,p)=>a+p.denda,0).toLocaleString('id-ID')}</div></div></div>
+        <div class="activity-row"><div class="a-dot" style="background:var(--amber)"></div><div><div class="a-title">Siswa aktif meminjam</div><div class="a-time">${new Set(peminjaman.filter(p=>p.status!=='Selesai').map(p=>p.siswa)).size} siswa</div></div></div>
+      <div class="notif-content">
+        <h5>${n.title}</h5>
+        <p>${n.text}</p>
+        <div class="notif-time">${n.time}</div>
+      </div>
+    </div>`;
+    </div>
+  `).join('');
+}
+
+document.getElementById('modal-overlay').addEventListener('click', e=>{ if(e.target.id==='modal-overlay') closeModal(); });
+function readNotif(id) {
+  const notif = appData.notifikasi.find(n => n.id === id);
+  if (notif) notif.unread = false;
+  saveState();
+  renderNotifList();
+}
+
+function markAllNotifRead() {
+  appData.notifikasi.forEach(n => n.unread = false);
+  saveState();
+  renderNotifList();
+  showToast('Notifikasi', 'Semua notifikasi ditandai telah dibaca.', 'info');
+}
+
+/* Close dropdown when clicking outside */
+document.addEventListener('click', (e) => {
+  const dropdown = document.getElementById('notif-dropdown');
+  const notifBtn = document.getElementById('notif-btn');
+  if (dropdown && !dropdown.contains(e.target) && !notifBtn.contains(e.target)) {
+    dropdown.classList.remove('show');
+  }
+});
+
+/* ==========================================================================
+   ROLE SWITCH MODAL & HELP MODAL
+   ========================================================================== */
+function openSwitchRoleModal() {
+  openGlobalModal(`
+    <div class="modal-header">
+      <h3>Ganti Peran Pengguna (Cepat)</h3>
+      <button class="btn-icon" onclick="closeGlobalModal()"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:16px">Pilih peran akun yang ingin Anda simulasikan secara langsung:</p>
+      <div style="display:grid;gap:10px">
+        ${DEFAULT_ROLES.map(r => `
+          <div style="padding:12px 14px;border:1.5px solid ${r.id === activeRole.id ? 'var(--brand-primary)' : 'var(--border)'};border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:${r.id === activeRole.id ? 'var(--brand-primary-light)' : 'var(--bg-app)'}" onclick="switchRoleNow('${r.id}')">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="width:34px;height:34px;border-radius:8px;background:var(--bg-card);display:flex;align-items:center;justify-content:center">${r.icon}</div>
+              <div>
+                <div style="font-weight:700;font-size:0.92rem">${r.name}</div>
+                <div style="font-size:0.78rem;color:var(--text-muted)">${r.user}</div>
+              </div>
+            </div>
+            ${r.id === activeRole.id ? '<span class="badge badge-teal">Sedang Aktif</span>' : ''}
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:14px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:0.8rem;color:var(--text-muted)">Data tersimpan di Browser (LocalStorage)</span>
+        <button class="btn btn-secondary btn-sm" onclick="resetAllData()">Reset ke Data Pabrik</button>
+      </div>
+    </div>
+  `);
+}
+
+function switchRoleNow(roleId) {
+  activeRole = DEFAULT_ROLES.find(r => r.id === roleId);
+  closeGlobalModal();
+  initAppSession();
+  showToast('Peran Dialihkan', `Kini Anda mengakses sistem sebagai ${activeRole.name}.`, 'success');
+}
+
+function openHelpModal() {
+  openGlobalModal(`
+    <div class="modal-header">
+      <h3>Pusat Bantuan & Pemulihan Akun</h3>
+      <button class="btn-icon" onclick="closeGlobalModal()"><svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.86rem;margin-bottom:12px">Pada mode uji coba prototipe web ini, Anda dapat menggunakan tombol <strong>1-Klik Akun Demo</strong> di atas form login untuk masuk langsung ke 4 akun berbeda:</p>
+      <ul style="padding-left:20px;font-size:0.84rem;color:var(--text-muted);line-height:1.7">
+        <li><strong>Administrator:</strong> admin@labku.sch.id (Sandi: labku123)</li>
+        <li><strong>Petugas Lab:</strong> petugas@labku.sch.id (Sandi: labku123)</li>
+        <li><strong>Siswa:</strong> 22101@siswa.labku.sch.id (Sandi: labku123)</li>
+        <li><strong>Kepala Lab:</strong> kepala.lab@labku.sch.id (Sandi: labku123)</li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="closeGlobalModal()">Mengerti</button>
+    </div>
+  `);
+}
+
+/* ==========================================================================
+   THEME, SIDEBAR & UI UTILITIES
+   ========================================================================== */
+function toggleTheme() {
+  currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  localStorage.setItem('labku_theme', currentTheme);
+  showToast('Tema Tampilan', `Beralih ke mode ${currentTheme === 'dark' ? 'Gelap (Dark)' : 'Terang (Light)'}.`, 'info');
+}
+
+function toggleSidebar() {
+  document.getElementById('app-sidebar').classList.toggle('open');
+}
+
+function openGlobalModal(htmlContent) {
+  document.getElementById('modal-container-box').innerHTML = htmlContent;
+  document.getElementById('global-modal').classList.add('show');
+}
+
+function closeGlobalModal() {
+  document.getElementById('global-modal').classList.remove('show');
+}
+
+function handleModalOverlayClick(e) {
+  if (e.target.id === 'global-modal') closeGlobalModal();
+}
+
+function showToast(title, message, type = 'info') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast`;
+
+  const iconColor = type === 'success' ? 'var(--success)' : (type === 'danger' ? 'var(--danger)' : (type === 'warning' ? 'var(--warning)' : 'var(--brand-primary)'));
+  const iconSvg = type === 'success' ? '<polyline points="20 6 9 17 4 12"></polyline>' : (type === 'danger' ? '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>' : '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>');
+
+  toast.innerHTML = `
+    <div class="toast-icon" style="background:${iconColor}22;color:${iconColor}">
+      <svg class="icon icon-sm" viewBox="0 0 24 24">${iconSvg}</svg>
+    </div>
+    <div class="toast-body">
+      <h5>${title}</h5>
+      <p>${message}</p>
+    </div>
+  `;
+
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 250);
+  }, 3500);
+}
+
+function getBadgeByStatus(status) {
+  const s = status.toLowerCase();
+  if (s === 'tersedia' || s === 'selesai' || s === 'baik') return 'badge-success';
+  if (s === 'menunggu persetujuan' || s === 'dalam perbaikan') return 'badge-warning';
+  if (s === 'dipinjam') return 'badge-teal';
+  if (s === 'terlambat' || s === 'rusak berat' || s === 'ditolak') return 'badge-danger';
+  return 'badge-gray';
+}
+
+function formatDateIndo(dateStr) {
+  if (!dateStr) return '-';
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+// Auto fill demo account on initial load
+autoFillCurrentDemoRole();
+</script>
+</body>
+</html>
